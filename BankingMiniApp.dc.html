@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<title>Banking Mini App — From Concept to MVP · Asya Gaifullina</title>
+<meta name="description" content="Banking Mini App case study: a mini app for one of Russia’s largest banks, from concept to MVP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
+<link rel="preload" as="image" href="assets/banking-hero.webp" fetchpriority="high">
+<style>
+html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
+ul{list-style:none}
+a{color:inherit;text-decoration:none;transition:opacity .2s ease}
+a:hover{opacity:.6}
+a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
+video{display:block}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+[data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
+[data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
+[data-reveal="in"]{opacity:1;transform:none;transition:opacity .55s ease-out,transform .55s ease-out}
+@media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</helmet>
+<div data-screen-label="Banking Mini App case" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <header style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px);">
+    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+    <div style="display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
+      <h1 style="font-weight: 400; font-size: clamp(24px, calc(24px + (100vw - 375px) * 0.0208333), 56px); line-height: 1.2; color: rgb(39,32,40); text-box: trim-both cap alphabetic;">NDA</h1>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
+        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Mini App for One of Russia’s Largest Banks</p>
+        <ul aria-label="Tags" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
+          <li style="text-box: trim-both cap alphabetic;">MVP</li>
+          <li style="text-box: trim-both cap alphabetic;">iOS Mini App</li>
+          <li style="text-box: trim-both cap alphabetic;">B2C</li>
+          <li style="text-box: trim-both cap alphabetic;">Fintech</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+    <div style="container-type: inline-size;">
+      <img src="assets/banking-hero.webp" alt="Hand holding a phone with the banking mini app" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Context</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>This project is under NDA, so I can’t disclose its name, purpose, or show the final interfaces. In this case study, I focus on the process — from the initial brief to a fully developed product handed off to engineering.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">My Role</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I co-owned the design process with the Design Lead: I designed user flows and wireframes, developed visual concepts, worked through states and edge cases, and defined the approach to illustration and motion.</p>
+          <p>I also prepared briefs for the Illustrator and Motion Designer, joined stakeholder meetings, supported implementation, and conducted design reviews.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Team</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I worked with a Design Lead, Product Manager, Stakeholder, Illustrator, Motion Designer, Frontend and Backend Engineers, and QA.</p>
+        </div>
+      </section>
+    </div>
+    <div style="container-type: inline-size;">
+      <img src="assets/banking-01.webp" alt="Brief, target audience and product requirements overview" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Constantly Evolving Requirements</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>The concept stage took longer than usual because the product and its requirements were evolving in parallel with the design. The brief changed significantly several times, which meant some directions had to be rebuilt from scratch.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">First, Understand the Problem</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>We started by studying the brief, target audience, and product requirements. I conducted a competitor analysis, then reviewed the findings with the Design Lead and took part in an internal brainstorming session.</p>
+        </div>
+      </section>
+    </div>
+    <div style="container-type: inline-size;">
+      <img src="assets/banking-02.webp" alt="Visual references and wireframes explored in parallel" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">UX and Visual Exploration in Parallel</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>After the research phase, I started collecting visual references while simultaneously working on wireframes. This allowed us to test the logic of the user flows and the visual direction independently before connecting them too early.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">15+ Concepts</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>During the concept stage, I developed more than 15 visual directions in response to the changing requirements.</p>
+          <p>Each concept was more than a collection of stylistic references: I developed a core metaphor, created examples of key visuals using generative tools, and prepared a presentation explaining the idea and how it could evolve across the product.</p>
+        </div>
+      </section>
+    </div>
+    <div style="container-type: inline-size;">
+      <img src="assets/banking-03.webp" alt="Visual concepts developed for the mini app" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">We Tested More Than the Visual Direction</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>In parallel, the research team tested prototypes with users. Based on the findings, I refined the flows, adjusted individual steps, and iterated on the overall user journey.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">From Concept to System</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>Once one of the concepts was approved, we worked with the engineering team to validate its technical constraints and determine which visual and motion mechanics could realistically be implemented within the Mini App.</p>
+          <p>At the same time, I prepared detailed briefs for the Illustrator and Motion Designer, covering required states, graphic behavior, and asset requirements so the visual language could remain consistent across different product scenarios.</p>
+        </div>
+      </section>
+    </div>
+    <div style="container-type: inline-size;">
+      <img src="assets/banking-04.webp" alt="Mini app screens and UI kit components" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Turning the Concept Into a Product</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>Once the visual direction was established, I designed the remaining parts of the Mini App, including onboarding, the personal account area, the store, and additional user scenarios.</p>
+          <p>For each flow, I worked through primary and alternative states, errors, and edge cases. In parallel, I built the UI Kit so that new screens could scale without breaking the visual system.</p>
+        </div>
+      </section>
+      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Handoff Wasn’t the Final Step</h2>
+        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>After all screens were approved, I prepared the designs for development, created desktop adaptations, and documented the required component states and behavior.</p>
+          <p>I stayed involved during implementation: answering developers’ questions, reviewing built screens, and conducting design reviews to make sure the production version preserved both the product logic and the visual principles of the concept.</p>
+          <p>After launch, the team will validate the key product hypotheses with real users and continue iterating on the MVP based on actual usage data.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
+    <ul>
+      <li style="width: max(63.3663%, min(100%, 736px)); container-type: inline-size;">
+        <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
+          <div style="position: relative; width: 100%; height: calc(100cqw * 0.52658 + 59.4px); overflow: hidden; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
+            <video src="media/1.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.25; text-box: trim-both cap alphabetic;">Pricing System for a Designer Marketplace</h3>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
+    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
+    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
+      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
+      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
+    </nav>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const setupReveal = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return null;
+  const els = Array.from(document.querySelectorAll('main > section, main > div > section, main > div:has(> img, > div > img, > div > video), section[aria-labelledby="more"]'));
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+  els.forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    el.setAttribute('data-reveal', 'off');
+    io.observe(el);
+  });
+  return io;
+};
+class Component extends DCLogic {
+  componentDidMount() { this.rio = setupReveal(); }
+  componentWillUnmount() { if (this.rio) this.rio.disconnect(); }
+  renderVals() {
+    const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
+    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop' };
+  }
+}
+</script>
+</body>
+</html>

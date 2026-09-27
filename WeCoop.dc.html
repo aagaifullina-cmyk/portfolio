@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>WeCoop — Pricing and Proposal Creation System for Designers · Asya Gaifullina</title>
+<meta name="description" content="WeCoop case study: a pricing and proposal creation system for designers on a B2B marketplace.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
+<link rel="preload" as="image" href="assets/wecoop-hero.webp" fetchpriority="high">
+<style>
+html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
+ul{list-style:none}
+a{color:inherit;text-decoration:none;transition:opacity .2s ease}
+a:hover{opacity:.6}
+a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
+video{display:block}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+[data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
+[data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
+[data-reveal="in"]{opacity:1;transform:none;transition:opacity .55s ease-out,transform .55s ease-out}
+@media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</helmet>
+<div data-screen-label="WeCoop case" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <header style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px);">
+    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+    <div style="display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
+      <h1 style="font-weight: 400; font-size: clamp(24px, calc(24px + (100vw - 375px) * 0.0208333), 56px); line-height: 1.2; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">WECOOP</h1>
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
+        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Pricing and Proposal Creation System for Designers</p>
+        <ul aria-label="Tags" style="display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: 14px; line-height: 2; color: rgb(157,157,157); white-space: nowrap;">
+          <li style="text-box: trim-both cap alphabetic;">MVP</li>
+          <li style="text-box: trim-both cap alphabetic;">SaaS</li>
+          <li style="text-box: trim-both cap alphabetic;">Web</li>
+          <li style="text-box: trim-both cap alphabetic;">B2B</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+    <div style="container-type: inline-size;">
+      <div role="img" aria-label="WeCoop pricing interface" style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243) url(assets/wecoop-hero.webp) 54.622% 36.445% / 150.871% auto no-repeat;"></div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Context</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>WeCoop is a B2B platform where companies work with designers: clients post projects, receive proposals, select a designer, and negotiate project terms within the platform.</p>
+        <p>For the MVP, we needed to create a pricing system that could serve as the foundation for estimating project costs.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/1.mp4" aria-label="Service selection: choosing the types of work a designer offers" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Challenge</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>Design a pricing system from scratch that clearly explains how the final project cost is calculated and generates a structured cost breakdown for accounting purposes.</p>
+        <p>This is especially important for tenders, where a designer’s proposal needs to provide a transparent breakdown by type and volume of work.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/2.mp4" aria-label="Designer price list with work types, complexity and time estimates" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Constraints</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>WeCoop minimizes direct communication between clients and designers, so key agreements need to happen through structured interactions within the product.</p>
+        <p>The price list also needs to be reusable when creating proposals. At the same time, the MVP has to stay relatively simple while collecting enough data to inform future product decisions.</p>
+        <p>As a result, the first version includes steps whose immediate value may not always be obvious to designers—for example, estimating different types of work by complexity and time. This data will help us understand which parameters actually affect pricing.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/3.mp4" aria-label="Creating a proposal: project timeline, scope of work and price" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">My Role</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>I analyzed business requirements, designed user flows and product logic, presented and defended design decisions, supported implementation, and conducted design reviews.</p>
+        <p>I worked in a cross-functional team with an Art Director, Stakeholder, Product Manager, Frontend and Backend Engineers, and QA.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/4.mp4" aria-label="Deadline selection calendars for designer and client" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Price Adjustment</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>User interviews showed that the cost of a design project cannot always be calculated simply by adding up fixed service prices. An unclear brief, complex approval processes, and other risks can significantly affect the final estimate.</p>
+        <p>To account for this, I introduced an uncertainty coefficient: the system calculates a base price from the designer’s price list, while the designer can adjust it to reflect the context of a specific project.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/5.mp4" aria-label="Sending a proposal with the adjusted price to the client" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Deadline Negotiation</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>Discussing deadlines in a chat would go against WeCoop’s approach to minimizing direct communication, so I designed a structured negotiation flow using a calendar.</p>
+        <p>The client proposes a deadline, the designer can suggest a different date, and both sides continue adjusting it until they reach an agreement.</p>
+        <p>This replaces an open-ended conversation with a focused interaction built around a single parameter—the project deadline.</p>
+      </div>
+    </section>
+
+    <div style="container-type: inline-size;">
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+        <video data-src="media/6.mp4" aria-label="A4 document preview" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">What’s Next</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p>The price list has been launched as part of the MVP, so the next iterations will be driven by real usage data.</p>
+        <p>I’ll compare prices saved in designers’ price lists with prices in actual proposals and track how often designers adjust the price calculated by the system. This will help determine how closely the current structure reflects real-world pricing models and which parameters actually influence estimates.</p>
+        <p>Based on these findings, I’ll be able to remove redundant parameters, simplify the flow, and improve pricing accuracy while keeping the cost breakdown transparent for clients.</p>
+      </div>
+    </section>
+  </main>
+
+  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
+    <ul>
+      <li style="width: max(50% - 12px, min(100%, 736px)); container-type: inline-size;">
+        <a href="{{ bankingHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
+        <img src="assets/case-banking.webp" alt="Banking mini app screens" loading="lazy" decoding="async" width="1800" height="1350" style="display: block; width: 100%; height: calc(100cqw * 0.76004 - 20.69px); object-fit: cover; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
+        <div style="display: flex; flex-direction: column; gap: clamp(8px, calc(8px + (100vw - 375px) * 0.0052083), 16px);">
+          <h3 style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.2; text-box: trim-both cap alphabetic;">Banking Mini App — From Concept to MVP</h3>
+          <span style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.2; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
+        </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
+    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
+    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
+      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
+      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
+    </nav>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const setupReveal = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return null;
+  const els = Array.from(document.querySelectorAll('main > section, main > div > section, main > div:has(> img, > div > img, > div > video), section[aria-labelledby="more"]'));
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+  els.forEach((el) => {
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
+    el.setAttribute('data-reveal', 'off');
+    io.observe(el);
+  });
+  return io;
+};
+class Component extends DCLogic {
+  componentDidMount() {
+    this.rio = setupReveal();
+    this.rm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const vids = Array.from(document.querySelectorAll('video[data-src]'));
+    const load = (v) => {
+      if (v.dataset.loaded) return;
+      v.dataset.loaded = '1';
+      v.muted = true; v.defaultMuted = true; v.playsInline = true; v.loop = true; v.controls = false;
+      v.setAttribute('muted', ''); v.setAttribute('loop', '');
+      v.addEventListener('ended', () => { v.currentTime = 0; play(v); });
+      v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+      v.preload = this.rm.matches ? 'metadata' : 'auto';
+      v.src = v.dataset.src;
+    };
+    const play = (v) => { if (!this.rm.matches) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } };
+    if (!('IntersectionObserver' in window)) { vids.forEach((v) => { load(v); play(v); }); return; }
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const v = e.target;
+        if (e.isIntersecting) { load(v); play(v); } else if (!v.paused) v.pause();
+      });
+    }, { rootMargin: '400px 0px' });
+    vids.forEach((v) => this.io.observe(v));
+    this.onMotion = () => vids.forEach((v) => { if (this.rm.matches) v.pause(); });
+    this.rm.addEventListener && this.rm.addEventListener('change', this.onMotion);
+  }
+  componentWillUnmount() {
+    if (this.rio) this.rio.disconnect();
+    if (this.io) this.io.disconnect();
+    if (this.rm && this.rm.removeEventListener) this.rm.removeEventListener('change', this.onMotion);
+  }
+  renderVals() {
+    const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
+    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', bankingHref: isFile ? 'BankingMiniApp.dc.html' : '/banking-mini-app' };
+  }
+}
+</script>
+</body>
+</html>
