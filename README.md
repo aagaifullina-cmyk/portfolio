@@ -2,6 +2,8 @@
 
 Personal portfolio site of Asya Gaifullina, Product · UX/UI designer.
 
+**Live:** https://aagaifullina-cmyk.github.io/portfolio/
+
 ## Pages
 
 | File | Content |
