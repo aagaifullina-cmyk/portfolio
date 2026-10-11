@@ -6,3 +6,16 @@
 .vscode/
 .idea/
 *.swp
+
+# Local NDA allowlist (company names stay off GitHub)
+tools/nda-allowlist.txt
+
+# Raw NDA case sources (processed copies live in assets/ and media/)
+/[1-8].png
+/[1-8].mp4
+*.fig
+
+# Full NDA case: local only, never published (the access screen sends allowed companies to Figma)
+PredictionMiniApp.full.dc.html
+assets/prediction-*.webp
+media/prediction-*.mp4

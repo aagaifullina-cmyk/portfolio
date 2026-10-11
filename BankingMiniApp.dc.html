@@ -147,6 +147,12 @@ video{display:block}
         </div>
       </section>
     </div>
+    <section aria-label="Full case" style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Looking for the full version?</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+        <p style="text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}" style="font-weight: 400;">Open full case →</a></p>
+      </div>
+    </section>
   </main>
 
   <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
@@ -187,12 +193,53 @@ const setupReveal = () => {
   });
   return io;
 };
+// Desktop only: media blocks shrink slightly (to 95%) as they move past the top of the viewport.
+// Transform-only, so layout never changes; the scale sits on the block's inner element while
+// scroll reveal keeps animating the container, so the two never fight over `transform`.
+const setupScrollScale = () => {
+  const mq = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+  const blocks = Array.from(document.querySelectorAll('main > div[style*="container-type"]'))
+    .map((box) => ({ box, el: box.firstElementChild })).filter((b) => b.el);
+  const MIN = 0.95;
+  let raf = 0, on = false;
+  const update = () => {
+    raf = 0;
+    const start = window.innerHeight * 0.2;
+    const scales = blocks.map(({ box }) => {
+      const r = box.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (start - r.top) / (r.height * 0.8)));
+      return 1 - (1 - MIN) * p * p * (3 - 2 * p);
+    });
+    blocks.forEach(({ el }, i) => { el.style.transform = scales[i] < 0.9999 ? `scale(${scales[i].toFixed(4)})` : ''; });
+  };
+  const onScroll = () => { if (on && !raf) raf = requestAnimationFrame(update); };
+  const sync = () => {
+    on = mq.matches;
+    blocks.forEach(({ el }) => {
+      el.style.transformOrigin = on ? '50% 0' : '';
+      el.style.willChange = on ? 'transform' : '';
+      if (!on) el.style.transform = '';
+    });
+    if (on) update();
+  };
+  sync();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  if (mq.addEventListener) mq.addEventListener('change', sync); else mq.addListener(sync);
+  return () => {
+    if (raf) cancelAnimationFrame(raf);
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+    if (mq.removeEventListener) mq.removeEventListener('change', sync); else mq.removeListener(sync);
+    on = false; blocks.forEach(({ el }) => { el.style.transform = ''; el.style.transformOrigin = ''; el.style.willChange = ''; });
+  };
+};
 class Component extends DCLogic {
-  componentDidMount() { this.rio = setupReveal(); }
-  componentWillUnmount() { if (this.rio) this.rio.disconnect(); }
+  componentDidMount() { this.rio = setupReveal(); this.unscale = setupScrollScale(); }
+  componentWillUnmount() { if (this.rio) this.rio.disconnect(); if (this.unscale) this.unscale(); }
   renderVals() {
     const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
-    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop' };
+    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop', fullCaseHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
   }
 }
 </script>

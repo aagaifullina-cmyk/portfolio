@@ -9,7 +9,8 @@ Personal portfolio site of Asya Gaifullina, Product · UX/UI designer.
 | File | Content |
 |------|---------|
 | `Portfolio.dc.html` | Main page |
-| `BankingMiniApp.dc.html` | Case study: Banking Mini App — from concept to MVP |
+| `PredictionMiniApp.dc.html` | Access screen for the NDA case: an allowed company name opens the Figma prototype |
+| `BankingMiniApp.dc.html` | Public anonymized version of the NDA case ("View public version") |
 | `WeCoop.dc.html` | Case study: WeCoop — pricing and proposal system for designers |
 
 ## Structure
@@ -17,6 +18,7 @@ Personal portfolio site of Asya Gaifullina, Product · UX/UI designer.
 - `assets/` — images (WebP)
 - `media/` — videos used on the pages
 - `support.js` — shared scripts
+- `tools/build_allowlist.py` — builds the hashed company allowlist for the NDA case from `tools/nda-allowlist.txt` (local only, gitignored)
 
 ## Run locally
 

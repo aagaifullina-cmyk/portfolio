@@ -56,7 +56,7 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
           </a>
         </li>
         <li style="width: calc(505 * var(--u));">
-          <a href="{{ bankingHref }}" style="display: flex; flex-direction: column; gap: calc(24 * var(--u)); opacity: 1;">
+          <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: calc(24 * var(--u)); opacity: 1;">
           <div role="img" aria-label="Banking mini app screens" style="position: relative; overflow: hidden; isolation: isolate; height: calc(666 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-banking.webp) 39.604% 50% / 175.842% 100% no-repeat;"></div></div>
           <div style="display: flex; flex-direction: column; gap: calc(16 * var(--u));">
             <h2 style="font-weight: 300; font-size: max(15px, calc(24 * var(--u))); line-height: 1.25; text-box: trim-both cap alphabetic;">Banking Mini App — From Concept to MVP</h2>
@@ -120,7 +120,7 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
         </a>
       </li>
       <li>
-        <a href="{{ bankingHref }}" style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m)); opacity: 1;">
+        <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m)); opacity: 1;">
         <div role="img" aria-label="Banking mini app screens" style="position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 343 / 240; border-radius: calc(17.093 * var(--m));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-banking.webp) center / cover no-repeat;"></div></div>
         <div style="display: flex; flex-direction: column; gap: calc(8 * var(--m));">
           <h2 style="font-weight: 300; font-size: calc(16 * var(--m)); line-height: 1.1172; text-box: trim-both cap alphabetic;">Banking Mini App — From Concept to MVP</h2>
@@ -160,7 +160,7 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 <script type="text/x-dc" data-dc-script data-props="{&quot;smoothing&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.12, &quot;min&quot;: 0.04, &quot;max&quot;: 0.4, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Case gallery&quot;}, &quot;desktopBreakpoint&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 1024, &quot;min&quot;: 600, &quot;max&quot;: 1400, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Layout&quot;}}">
 const IS_FILE = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
 const WECOOP_HREF = IS_FILE ? 'WeCoop.dc.html' : '/wecoop';
-const BANKING_HREF = IS_FILE ? 'BankingMiniApp.dc.html' : '/banking-mini-app';
+const PREDICTION_HREF = IS_FILE ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app';
 const loopVideos = () => document.querySelectorAll('video[data-loop]').forEach((v) => {
   v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.controls = false;
   v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', ''); v.setAttribute('muted', '');
@@ -170,6 +170,197 @@ const loopVideos = () => document.querySelectorAll('video[data-loop]').forEach((
   }
   if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
 });
+
+// ---- Glass edge (desktop gallery only) -------------------------------------------------------
+// Recreates the Figma "Glass" effect from the reference file (a glass frame the size of the screen:
+// refraction 100%, depth 100px, dispersion 100%). Inside the depth band along the frame edges the
+// image is refracted towards the frame centre, so a card touching an edge stretches into it and
+// its top/bottom corners curve outwards, with RGB dispersion. It depends only on where the card is
+// on screen, like the reference. Only cards inside that band are drawn with WebGL (behind the DOM,
+// with their DOM media hidden); all other cards stay plain DOM. Text and badges are never refracted.
+const GLASS_VS = `
+attribute vec2 aPos;
+uniform vec4 uQuad; uniform vec2 uView;
+varying vec2 vP;
+void main() {
+  vP = uQuad.xy + aPos * uQuad.zw;
+  vec2 c = vP / uView * 2.0 - 1.0;
+  gl_Position = vec4(c.x, -c.y, 0.0, 1.0);
+}`;
+const GLASS_FS = `
+precision highp float;
+uniform sampler2D uTex;
+uniform vec2 uView; uniform vec4 uRect; uniform vec4 uCrop;
+uniform float uZoom, uDark, uRadius, uDepth, uRefraction, uDispersion;
+varying vec2 vP;
+vec2 refractAt(vec2 p, float k) {
+  vec2 d = min(p, uView - p);
+  float dist = min(d.x, d.y);
+  float t = clamp(1.0 - dist / uDepth, 0.0, 1.0);
+  float bevel = 1.0 - sqrt(1.0 - t * t);
+  float span = d.x < d.y ? 0.5 * uView.x : 0.5 * uView.y;
+  return p + (0.5 * uView - p) * (uDepth * uRefraction * bevel / span) * k;
+}
+vec4 card(vec2 s) {
+  vec2 local = s - uRect.xy;
+  vec2 q = abs(local - uRect.zw * 0.5) - (uRect.zw * 0.5 - uRadius);
+  float a = clamp(0.5 - (length(max(q, 0.0)) - uRadius), 0.0, 1.0);
+  vec2 uv = 0.5 + (local / uRect.zw - 0.5) / uZoom;
+  vec2 t = uv * uCrop.zw + uCrop.xy;
+  if (t.x < 0.0 || t.y < 0.0 || t.x > 1.0 || t.y > 1.0) a = 0.0;
+  return vec4(texture2D(uTex, clamp(t, 0.0, 1.0)).rgb * (1.0 - uDark), a);
+}
+void main() {
+  float s = 0.15 * uDispersion;
+  vec4 r = card(refractAt(vP, 1.0 + s));
+  vec4 g = card(refractAt(vP, 1.0));
+  vec4 b = card(refractAt(vP, 1.0 - s));
+  gl_FragColor = vec4(r.r * r.a, g.g * g.a, b.b * b.a, max(g.a, max(r.a, b.a)));
+}`;
+const GLASS = { depth: 100, refraction: 1, dispersion: 1 }; // values from the Figma Glass effect (depth in design px)
+const createGlassEdge = (frame, track, getCur) => {
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;z-index:-1;pointer-events:none';
+  const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false });
+  if (!gl) return null;
+  const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, GLASS_VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, GLASS_FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
+  gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0, 1, 0, 0, 1, 1, 1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'aPos');
+  gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+  const U = {};
+  ['uQuad', 'uView', 'uRect', 'uCrop', 'uTex', 'uZoom', 'uDark', 'uRadius', 'uDepth', 'uRefraction', 'uDispersion'].forEach((n) => { U[n] = gl.getUniformLocation(prog, n); });
+  gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+  frame.prepend(canvas);
+
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  still.addEventListener && still.addEventListener('change', () => kick());
+  let raf = 0, zooming = 0, W = 0, H = 0, dpr = 1, depth = 0;
+  const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+  const lastLayer = (v) => String(v).split(/,(?![^(]*\))/).pop().trim();
+  const cards = Array.from(track.querySelectorAll('[data-zoom]')).map((src) => {
+    const wrap = src.parentElement, isVideo = src.tagName === 'VIDEO';
+    const tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([243, 242, 243, 255]));
+    ['TEXTURE_WRAP_S', 'TEXTURE_WRAP_T'].forEach((k) => gl.texParameteri(gl.TEXTURE_2D, gl[k], gl.CLAMP_TO_EDGE));
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    const card = { src, wrap, isVideo, tex, img: null, ready: isVideo, dark: 0, glass: false };
+    if (!isVideo) {
+      const cs = getComputedStyle(src);
+      const m = /url\(["']?([^"')]+)/.exec(cs.backgroundImage);
+      const g = /gradient\([^)]*rgba\(0,\s*0,\s*0,\s*([\d.]+)\)/.exec(cs.backgroundImage);
+      card.dark = g ? parseFloat(g[1]) : 0;
+      card.bgSize = lastLayer(cs.backgroundSize); card.bgPos = lastLayer(cs.backgroundPosition);
+      if (m) {
+        const img = new Image(); img.decoding = 'async';
+        img.onload = () => { gl.bindTexture(gl.TEXTURE_2D, tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); card.ready = true; card.crop = null; kick(); };
+        img.src = m[1]; card.img = img;
+      }
+    }
+    // hover zoom on [data-zoom] animates for .5s: keep redrawing while it runs
+    src.addEventListener('transitionrun', () => { zooming++; kick(); });
+    const done = () => { zooming = Math.max(0, zooming - 1); kick(); };
+    src.addEventListener('transitionend', done); src.addEventListener('transitioncancel', done);
+    return card;
+  });
+
+  // Geometry is cached at measure time (relative to the untranslated track): no layout reads per frame.
+  const measure = () => {
+    const fr = frame.getBoundingClientRect(), cur = getCur();
+    W = frame.clientWidth; H = frame.clientHeight; dpr = Math.min(window.devicePixelRatio || 1, 2);
+    depth = GLASS.depth * Math.min(window.innerWidth / 1882, window.innerHeight / 1100, 1.2); // same --u as the layout
+    cards.forEach((c) => {
+      const r = c.wrap.getBoundingClientRect();
+      c.x0 = r.left - fr.left + cur; c.y = r.top - fr.top; c.w = r.width; c.h = r.height;
+      c.radius = parseFloat(getComputedStyle(c.wrap).borderTopLeftRadius) || 0;
+      c.crop = null;
+    });
+    kick();
+  };
+  const cropFor = (c) => {
+    const iw = c.isVideo ? c.src.videoWidth : c.img && c.img.naturalWidth;
+    const ih = c.isVideo ? c.src.videoHeight : c.img && c.img.naturalHeight;
+    if (!iw || !ih) return null;
+    let rw, rh, px = 0.5, py = 0.5;
+    const size = c.isVideo ? 'cover' : c.bgSize;
+    if (size === 'cover') { const s = Math.max(c.w / iw, c.h / ih); rw = iw * s; rh = ih * s; } else {
+      const [sw, shh] = size.split(/\s+/);
+      rw = sw.endsWith('%') ? c.w * parseFloat(sw) / 100 : parseFloat(sw);
+      rh = !shh || shh === 'auto' ? rw * ih / iw : shh.endsWith('%') ? c.h * parseFloat(shh) / 100 : parseFloat(shh);
+    }
+    if (!c.isVideo) {
+      const pos = c.bgPos.split(/\s+/).map((v) => (v === 'center' ? '50%' : v === 'left' || v === 'top' ? '0%' : v === 'right' || v === 'bottom' ? '100%' : v));
+      px = parseFloat(pos[0]) / 100; py = parseFloat(pos[1] ?? '50%') / 100;
+    }
+    const ox = (c.w - rw) * px, oy = (c.h - rh) * py;
+    return [-ox / rw, -oy / rh, c.w / rw, c.h / rh];
+  };
+  const setGlass = (c, v) => {
+    if (c.glass === v) return;
+    c.glass = v;
+    // the wrapper's hover background (style-hover) would otherwise paint over the canvas, so it is
+    // made transparent with priority while the card is drawn by WebGL
+    if (v) { c.prevOpacity = c.src.style.opacity; c.prevBg = c.wrap.style.backgroundColor; c.src.style.opacity = '0'; c.wrap.style.setProperty('background-color', 'transparent', 'important'); }
+    else { c.src.style.opacity = c.prevOpacity || ''; c.wrap.style.removeProperty('background-color'); if (c.prevBg) c.wrap.style.backgroundColor = c.prevBg; }
+  };
+  const loop = () => {
+    raf = 0;
+    const bw = Math.round(W * dpr), bh = Math.round(H * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    gl.viewport(0, 0, bw, bh); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+    if (still.matches) { cards.forEach((c) => setGlass(c, false)); return; }
+    gl.uniform2f(U.uView, W, H); gl.uniform1f(U.uDepth, depth);
+    gl.uniform1f(U.uRefraction, GLASS.refraction); gl.uniform1f(U.uDispersion, GLASS.dispersion);
+    const cur = getCur();
+    let videoInGlass = false;
+    cards.forEach((c) => {
+      const x = c.x0 - cur;
+      const inBand = x + c.w > 0 && x < W && (x < depth || x + c.w > W - depth || c.y < depth || c.y + c.h > H - depth);
+      if (!inBand || !c.ready) { setGlass(c, false); return; }
+      if (c.isVideo) {
+        // when the loop restarts the video is briefly not ready: keep the last frame instead of flickering
+        if (c.src.readyState >= 2) {
+          gl.bindTexture(gl.TEXTURE_2D, c.tex);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, c.src);
+          c.hasFrame = true;
+        } else if (!c.hasFrame) { setGlass(c, false); return; }
+        videoInGlass = !c.src.paused;
+      }
+      if (!c.crop) c.crop = cropFor(c);
+      if (!c.crop) { setGlass(c, false); return; }
+      const zm = /matrix\(([-\d.e]+)/.exec(getComputedStyle(c.src).transform);
+      const m = depth * 1.2 + 8; // refraction reaches at most ~depth outside the card
+      gl.bindTexture(gl.TEXTURE_2D, c.tex);
+      gl.uniform4f(U.uQuad, x - m, c.y - m, c.w + 2 * m, c.h + 2 * m);
+      gl.uniform4f(U.uRect, x, c.y, c.w, c.h);
+      gl.uniform4f(U.uCrop, c.crop[0], c.crop[1], c.crop[2], c.crop[3]);
+      gl.uniform1f(U.uZoom, zm ? parseFloat(zm[1]) : 1); gl.uniform1f(U.uDark, c.dark); gl.uniform1f(U.uRadius, c.radius);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      setGlass(c, true);
+    });
+    // keep animating only while something visible changes on its own
+    // (a hidden <video> gets no requestVideoFrameCallback in Chrome, so a playing video in the band redraws every frame)
+    if (zooming > 0 || videoInGlass) kick();
+  };
+  return {
+    frame,
+    measure,
+    poke: kick,
+    destroy() {
+      if (raf) cancelAnimationFrame(raf);
+      cards.forEach((c) => setGlass(c, false));
+      canvas.remove();
+      const ext = gl.getExtension('WEBGL_lose_context'); if (ext) ext.loseContext();
+    },
+  };
+};
 
 class Component extends DCLogic {
   outerRef = React.createRef();
@@ -197,9 +388,11 @@ class Component extends DCLogic {
     window.removeEventListener('wheel', this.onWheel);
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this.ro) this.ro.disconnect();
+    if (this.warp) this.warp.destroy();
   }
   onResize = () => {
     const m = window.innerWidth < (this.props.desktopBreakpoint ?? 1024);
+    if (m && this.warp) { this.warp.destroy(); this.warp = null; }
     if (m !== this.state.mobile) this.setState({ mobile: m }); else this.measure();
   };
   innerWidth() {
@@ -214,6 +407,7 @@ class Component extends DCLogic {
     this.D = Math.max(0, Math.ceil(t.scrollWidth - this.innerWidth()));
     o.style.height = `calc(100vh + ${this.D}px)`;
     if (this.first) { this.first = false; this.cur = this.target(); this.apply(); }
+    this.setupWarp(t);
     this.onScroll();
   };
   target() {
@@ -223,6 +417,16 @@ class Component extends DCLogic {
   apply() {
     const t = this.trackRef.current;
     if (t) t.style.transform = `translate3d(${(-this.cur).toFixed(2)}px,0,0)`;
+    if (this.warp) this.warp.poke();
+  }
+  setupWarp(t) {
+    const f = this.frameRef.current;
+    if (this.rm && this.rm.matches) { if (this.warp) { this.warp.destroy(); this.warp = null; } return; }
+    if (!this.warp || this.warp.frame !== f) {
+      if (this.warp) this.warp.destroy();
+      this.warp = createGlassEdge(f, t, () => this.cur);
+    }
+    if (this.warp) this.warp.measure();
   }
   onScroll = () => {
     if (this.state.mobile || this.raf) return;
@@ -262,7 +466,7 @@ class Component extends DCLogic {
       outerRef: this.outerRef, frameRef: this.frameRef, trackRef: this.trackRef,
       onFocusIn: this.onFocusIn,
       wecoopHref: WECOOP_HREF,
-      bankingHref: BANKING_HREF,
+      predictionHref: PREDICTION_HREF,
     };
   }
 }

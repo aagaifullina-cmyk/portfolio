@@ -153,7 +153,7 @@ video{display:block}
     <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
     <ul>
       <li style="width: max(50% - 12px, min(100%, 736px)); container-type: inline-size;">
-        <a href="{{ bankingHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
+        <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
         <img src="assets/case-banking.webp" alt="Banking mini app screens" loading="lazy" decoding="async" width="1800" height="1350" style="display: block; width: 100%; height: calc(100cqw * 0.76004 - 20.69px); object-fit: cover; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
         <div style="display: flex; flex-direction: column; gap: clamp(8px, calc(8px + (100vw - 375px) * 0.0052083), 16px);">
           <h3 style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.2; text-box: trim-both cap alphabetic;">Banking Mini App — From Concept to MVP</h3>
@@ -188,9 +188,51 @@ const setupReveal = () => {
   });
   return io;
 };
+// Desktop only: media blocks shrink slightly (to 95%) as they move past the top of the viewport.
+// Transform-only, so layout never changes; the scale sits on the block's inner element while
+// scroll reveal keeps animating the container, so the two never fight over `transform`.
+const setupScrollScale = () => {
+  const mq = window.matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+  const blocks = Array.from(document.querySelectorAll('main > div[style*="container-type"]'))
+    .map((box) => ({ box, el: box.firstElementChild })).filter((b) => b.el);
+  const MIN = 0.95;
+  let raf = 0, on = false;
+  const update = () => {
+    raf = 0;
+    const start = window.innerHeight * 0.2;
+    const scales = blocks.map(({ box }) => {
+      const r = box.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (start - r.top) / (r.height * 0.8)));
+      return 1 - (1 - MIN) * p * p * (3 - 2 * p);
+    });
+    blocks.forEach(({ el }, i) => { el.style.transform = scales[i] < 0.9999 ? `scale(${scales[i].toFixed(4)})` : ''; });
+  };
+  const onScroll = () => { if (on && !raf) raf = requestAnimationFrame(update); };
+  const sync = () => {
+    on = mq.matches;
+    blocks.forEach(({ el }) => {
+      el.style.transformOrigin = on ? '50% 0' : '';
+      el.style.willChange = on ? 'transform' : '';
+      if (!on) el.style.transform = '';
+    });
+    if (on) update();
+  };
+  sync();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  if (mq.addEventListener) mq.addEventListener('change', sync); else mq.addListener(sync);
+  return () => {
+    if (raf) cancelAnimationFrame(raf);
+    window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onScroll);
+    if (mq.removeEventListener) mq.removeEventListener('change', sync); else mq.removeListener(sync);
+    on = false; blocks.forEach(({ el }) => { el.style.transform = ''; el.style.transformOrigin = ''; el.style.willChange = ''; });
+  };
+};
 class Component extends DCLogic {
   componentDidMount() {
     this.rio = setupReveal();
+    this.unscale = setupScrollScale();
     this.rm = window.matchMedia('(prefers-reduced-motion: reduce)');
     const vids = Array.from(document.querySelectorAll('video[data-src]'));
     const load = (v) => {
@@ -217,12 +259,13 @@ class Component extends DCLogic {
   }
   componentWillUnmount() {
     if (this.rio) this.rio.disconnect();
+    if (this.unscale) this.unscale();
     if (this.io) this.io.disconnect();
     if (this.rm && this.rm.removeEventListener) this.rm.removeEventListener('change', this.onMotion);
   }
   renderVals() {
     const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
-    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', bankingHref: isFile ? 'BankingMiniApp.dc.html' : '/banking-mini-app' };
+    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', predictionHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
   }
 }
 </script>
