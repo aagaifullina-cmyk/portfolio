@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png?v=2">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Prediction Mini App · Asya Gaifullina</title>
+<meta name="description" content="Access to an NDA-protected case study by Asya Gaifullina, Product · UX/UI designer.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
+<style>
+html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
+ul{list-style:none}
+a{color:inherit;text-decoration:none;transition:opacity .2s ease}
+a:hover{opacity:.6}
+a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+.pm-field{width:100%;height:56px;padding:0 20px;border:1px solid rgba(39,32,40,0.08);border-radius:14px;background:rgb(243,242,243);color:rgb(39,32,40);font:inherit;font-weight:300;font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px);outline:none;transition:border-color .2s ease;-webkit-appearance:none;appearance:none}
+.pm-field::placeholder{color:rgb(157,157,157);opacity:1}
+.pm-field:focus{border-color:rgba(39,32,40,0.2)}
+.pm-field{padding-right:60px}
+.pm-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.pm-go{position:absolute;top:50%;right:6px;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;border-radius:10px;background:transparent;color:rgb(39,32,40);cursor:pointer;transition:opacity .2s ease,color .2s ease;-webkit-tap-highlight-color:transparent}
+.pm-go:hover{opacity:.6}
+.pm-go:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:0}
+.pm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-12px;border-radius:10px;color:rgb(39,32,40);transition:opacity .2s ease,background-color .2s ease;-webkit-tap-highlight-color:transparent}
+.pm-close:hover{opacity:1;background-color:rgba(39,32,40,0.04)}
+.pm-close:active{background-color:rgba(39,32,40,0.07)}
+.pm-go[disabled]{color:rgb(198,198,198);cursor:default;opacity:1}
+</style>
+</helmet>
+<div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <header style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+    <a class="pm-close" href="{{ publicHref }}" onClick="{{ onClose }}" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+  </header>
+  <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
+    <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 20px);">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <p id="gate-intro" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">Enter your company name to view the full case on Figma.</p>
+        <p id="company-hint" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">Can’t find it?</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">Contact me</a></p>
+      </div>
+      <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="display: flex; flex-direction: column; gap: 10px;">
+        <label for="company" class="pm-sr">Company name</label>
+        <div style="position: relative;">
+          <input class="pm-field" id="company" name="company" type="text" placeholder="Company name" autoComplete="organization" autoCapitalize="words" autoCorrect="off" spellCheck="false" enterKeyHint="go" aria-invalid="{{ invalid }}" aria-describedby="gate-intro company-hint" onInput="{{ onInput }}">
+          <button class="pm-go" type="submit" aria-label="View case" disabled="{{ goDisabled }}">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15.5M13.5 5.5 20 12l-6.5 6.5"></path></svg>
+          </button>
+        </div>
+        <sc-if value="{{ error }}">
+          <p id="company-error" role="alert" style="font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
+        </sc-if>
+      </form>
+      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4;">View public version</a>
+    </div>
+  </main>
+  <footer style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
+    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
+    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
+      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
+      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
+    </nav>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const IS_FILE = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
+
+// ---- NDA access ------------------------------------------------------------
+// The full case is not published on this site: a company from the allowlist is sent to the Figma
+// prototype instead. The check runs in the browser, so it only keeps the link off casual view.
+// Company names are never stored in this file — only salted SHA-256 hashes of their normalized
+// aliases. To change the list: edit tools/nda-allowlist.txt (local, gitignored), run
+// `python3 tools/build_allowlist.py` and replace HASHES below.
+// normalizeCompany() must stay identical to normalize() in tools/build_allowlist.py.
+const FIGMA_URL = 'https://www.figma.com/proto/UCsDbecFmheQbHV72Wa1RA/MiniApp?node-id=1-1154&viewport=165%2C277%2C0.32&t=Te9ZB0dWIr9TT1XJ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1';
+const SALT = 'asya-portfolio/prediction-nda:';
+const NOT_FOUND = 'Company not found.';
+const SUFFIXES = new Set(['ltd', 'llc', 'llp', 'inc', 'corp', 'corporation', 'company', 'co', 'limited',
+  'plc', 'gmbh', 'ооо', 'оао', 'зао', 'пао', 'ао', 'ип', 'тоо']);
+const HASHES = new Set([
+  '02f99605e563ca8a678bdcaf8b13469c', '0b11650a84a19f4615b5f4a361758292', '10633270e42ec3be4d5e032977c32854',
+  '1f190c87f31331a76a324ee16036a09a', '213a167f1b332843de58d186bd07e11b', '2580038fa3769792f3622db6bb5dd298',
+  '2e3f2b47f08da3b7726aa43a940c1c15', '2e7ad15edeb2ff48621f6d10570bc1dd', '3305b9455b4c87db794320be84bf620b',
+  '358f6682b9610e5f2e299d16135b837b', '3974cc449f68a06519970c4f1852123f', '45ec1b71e7abba017edd15153f40ec73',
+  '512746f80f88c1a127961150b9214c59', '574ffb86427ad2aac12a729e8aec13b5', '5a95f9a8dd2e73e58be5c5fdbe63e043',
+  '5f0c059ae9a032b99373c4f18b84cbee', '602aab4782d5ba9a7ef729cb387c17f0', '6ae516c3fa9603f5b0419000ce81802e',
+  '6ecdff64482b3155375034ff0f6e38e2', '88ffd70fc9178c28373b275fddf1eaba', '8c84faaf350cae7ca4a6d30e71c47fe5',
+  '9871af08f2b18f039f8d992d1cdfe320', '9b0615782b7dc92e260cb563f4bb8c7b', '9f124973cb94bf3af3e4e13952fd3130',
+  'a77b2fb56d696602c5c79658bb384bbc', 'b12edb7c7d93ed857fcbc308e6fad9f8', 'b5eda91e7a3c5de32f563f16ed48c53c',
+  'b65e1a3324bca42c72c749116306c511', 'bc9894780870b2b3b20b8b4f21a6328a', 'c515945b066584d2c281312c897da506',
+  'cdb2e35c81e8aca14f87c794f7bb7391', 'd21db95f1cb60f60eddf7c45ef05e032', 'd99d139636f1cd9411d028f3b677de7b',
+  'dbe0880ec5d577cef54acf89e9962306', 'e08ba9fcde3710e690ceb162a589de36', 'e284b03331d6ba7239b8de4044f390f5',
+  'e4b2b7af9885369f6cb008286eef3660', 'e89cfae373a91b506e0db58a9dfacb79', 'ec23ae0fe1c6fb7a7c783cf920029b5c',
+  'eda97bb857bd3ce019896167436cbc06',
+]);
+
+const normalizeCompany = (s) => {
+  const v = String(s || '').normalize('NFKC').toLowerCase().replace(/ё/g, 'е')
+    .replace(/[«»"“”„'’‘`,()]/g, ' ');
+  const tokens = v.split(/\s+/).filter((t) => t && !SUFFIXES.has(t.replace(/[.\-–—_]/g, '')));
+  return tokens.join('').replace(/[.\-–—_\s]/g, '');
+};
+
+// SHA-256 in plain JS. It runs synchronously, so Figma can open in a new tab inside the click/Enter
+// handler itself — browsers block window.open() that happens after an await.
+const sha256 = (bytes) => {
+  const K = [], H = [];
+  for (let c = 2, n = 0; n < 64; c++) {
+    let prime = true;
+    for (let d = 2; d * d <= c; d++) if (c % d === 0) { prime = false; break; }
+    if (!prime) continue;
+    if (n < 8) H[n] = (Math.pow(c, 1 / 2) * 4294967296) | 0;
+    K[n++] = (Math.pow(c, 1 / 3) * 4294967296) | 0;
+  }
+  const len = bytes.length, total = ((len + 9 + 63) >> 6) << 6;
+  const m = new Uint8Array(total); m.set(bytes); m[len] = 0x80;
+  const dv = new DataView(m.buffer);
+  dv.setUint32(total - 8, Math.floor(len / 536870912)); dv.setUint32(total - 4, (len * 8) >>> 0);
+  const w = new Int32Array(64), rotr = (x, r) => (x >>> r) | (x << (32 - r));
+  for (let o = 0; o < total; o += 64) {
+    for (let i = 0; i < 16; i++) w[i] = dv.getInt32(o + i * 4);
+    for (let i = 16; i < 64; i++) {
+      const x = w[i - 15], y = w[i - 2];
+      w[i] = (w[i - 16] + (rotr(x, 7) ^ rotr(x, 18) ^ (x >>> 3)) + w[i - 7] + (rotr(y, 17) ^ rotr(y, 19) ^ (y >>> 10))) | 0;
+    }
+    let [a, b, c, d, e, f, g, h] = H;
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + (rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25)) + ((e & f) ^ (~e & g)) + K[i] + w[i]) | 0;
+      const t2 = ((rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+    }
+    [a, b, c, d, e, f, g, h].forEach((v, i) => { H[i] = (H[i] + v) | 0; });
+  }
+  return H.map((v) => (v >>> 0).toString(16).padStart(8, '0')).join('');
+};
+const isAllowedCompany = (input) => {
+  const key = normalizeCompany(input);
+  return !!key && HASHES.has(sha256(new TextEncoder().encode(SALT + key)).slice(0, 32));
+};
+// New tab keeps the portfolio open; if the browser blocks it, open Figma in this tab instead.
+const openFigma = () => {
+  const w = window.open(FIGMA_URL, '_blank');
+  if (w) { try { w.opener = null; } catch (e) {} } else location.href = FIGMA_URL;
+};
+
+class Component extends DCLogic {
+  state = { error: '', hasValue: false };
+
+  onClose = (e) => {
+    try {
+      const ref = document.referrer ? new URL(document.referrer) : null;
+      if (ref && ref.origin === location.origin && ref.pathname !== location.pathname && history.length > 1) {
+        e.preventDefault(); history.back();
+      }
+    } catch (err) {}
+  };
+  onInput = (e) => {
+    const hasValue = e.target.value.trim() !== '';
+    if (hasValue !== this.state.hasValue || this.state.error) this.setState({ hasValue, error: '' });
+  };
+  onSubmit = (e) => {
+    e.preventDefault();
+    const field = e.currentTarget.elements.company;
+    if (!normalizeCompany(field.value)) return;
+    if (isAllowedCompany(field.value)) {
+      this.setState({ error: '' });
+      openFigma();
+    } else {
+      this.setState({ error: NOT_FOUND });
+      field.focus();
+    }
+  };
+
+  renderVals() {
+    const { error, hasValue } = this.state;
+    return {
+      error, invalid: error ? 'true' : 'false', goDisabled: !hasValue,
+      onSubmit: this.onSubmit, onInput: this.onInput, onClose: this.onClose,
+      homeHref: IS_FILE ? 'Portfolio.dc.html' : '/',
+      publicHref: IS_FILE ? 'BankingMiniApp.dc.html' : '/banking-mini-app',
+    };
+  }
+}
+</script>
+</body>
+</html>
