@@ -4,6 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="favicon.png?v=2">
+<!-- PostHog: page views, a few custom events and heatmaps. No replay, autocapture, surveys or flags. -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="du fu pu gu bu init Vu Gu zu Uu Ku el Wu Xu qu rc oc ac lc uc cc capture getExtension Qu cu fc calculateEventProperties dc register register_once register_for_session unregister unregister_for_session bc Bu gc getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys onActiveMatchingSurveysChanged renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset wc shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty mc ec createPersonProfile setInternalOrTestUser yc Su wu opt_in_capturing opt_out_capturing ku has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Yu debug il Os getPageViewId captureTraceFeedback captureTraceMetric Ou".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_oBhD6PnEsdBfpRVgoYZJhS7HiNhBu589DcTwhUzNuvYk', {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-05-30',
+        person_profiles: 'identified_only',
+        autocapture: false,
+        capture_heatmaps: true,
+        capture_dead_clicks: false,
+        rageclick: false,
+        disable_session_recording: true,
+        disable_surveys: true,
+        advanced_disable_feature_flags: true,
+        capture_exceptions: false,
+        capture_performance: false,
+    })
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -80,32 +98,66 @@ const IS_FILE = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.
 // ---- NDA access ------------------------------------------------------------
 // The full case is not published on this site: a company from the allowlist is sent to the Figma
 // prototype instead. The check runs in the browser, so it only keeps the link off casual view.
-// Company names are never stored in this file — only salted SHA-256 hashes of their normalized
-// aliases. To change the list: edit tools/nda-allowlist.txt (local, gitignored), run
-// `python3 tools/build_allowlist.py` and replace HASHES below.
-// normalizeCompany() must stay identical to normalize() in tools/build_allowlist.py.
+// Company names are never stored in readable form: ACCESS maps salted SHA-256 hashes of normalized
+// aliases to the company's canonical name, encrypted with a key derived from that alias — so a name
+// can only be read after typing an allowed alias (it is then sent to analytics).
+// To change the list: edit tools/nda-allowlist.txt (local, gitignored), run
+// `python3 tools/build_allowlist.py` and replace ACCESS below.
+// normalizeCompany() and nameKeystream() must stay identical to normalize() and keystream()
+// in tools/build_allowlist.py.
 const FIGMA_URL = 'https://www.figma.com/proto/UCsDbecFmheQbHV72Wa1RA/MiniApp?node-id=1-1154&viewport=165%2C277%2C0.32&t=Te9ZB0dWIr9TT1XJ-1&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1';
 const SALT = 'asya-portfolio/prediction-nda:';
+const NAME_SALT = 'asya-portfolio/prediction-nda/name:';
 const NOT_FOUND = 'Company not found.';
 const SUFFIXES = new Set(['ltd', 'llc', 'llp', 'inc', 'corp', 'corporation', 'company', 'co', 'limited',
   'plc', 'gmbh', 'ооо', 'оао', 'зао', 'пао', 'ао', 'ип', 'тоо']);
-const HASHES = new Set([
-  '0b11650a84a19f4615b5f4a361758292', '0cda7e391d8f378c7296f294781ae2d2', '13719f7c2be1f628438eb48691979aa2',
-  '1f190c87f31331a76a324ee16036a09a', '213a167f1b332843de58d186bd07e11b', '2580038fa3769792f3622db6bb5dd298',
-  '2e3f2b47f08da3b7726aa43a940c1c15', '2e7ad15edeb2ff48621f6d10570bc1dd', '3305b9455b4c87db794320be84bf620b',
-  '358f6682b9610e5f2e299d16135b837b', '3974cc449f68a06519970c4f1852123f', '3b148f98c66808162165ca42102bb992',
-  '3b67301aff86aed56b366438b340ad8c', '454fe88b97d8ebb391c7f0470d4196c8', '45ec1b71e7abba017edd15153f40ec73',
-  '512746f80f88c1a127961150b9214c59', '5a95f9a8dd2e73e58be5c5fdbe63e043', '5e711386d5953b4515475ff6747f852f',
-  '5f0c059ae9a032b99373c4f18b84cbee', '602aab4782d5ba9a7ef729cb387c17f0', '6ae516c3fa9603f5b0419000ce81802e',
-  '88ffd70fc9178c28373b275fddf1eaba', '8c2e1ede1899adefa9bdbbab195fc171', '8c84faaf350cae7ca4a6d30e71c47fe5',
-  '9871af08f2b18f039f8d992d1cdfe320', '9b0615782b7dc92e260cb563f4bb8c7b', '9f124973cb94bf3af3e4e13952fd3130',
-  'a0062c9cb0bb19d5408f7d4807a72c27', 'a77b2fb56d696602c5c79658bb384bbc', 'b12edb7c7d93ed857fcbc308e6fad9f8',
-  'b65e1a3324bca42c72c749116306c511', 'bc9894780870b2b3b20b8b4f21a6328a', 'c515945b066584d2c281312c897da506',
-  'cdb2e35c81e8aca14f87c794f7bb7391', 'd21db95f1cb60f60eddf7c45ef05e032', 'd47abb245682fb9d87a7880d175fe856',
-  'd99d139636f1cd9411d028f3b677de7b', 'dbe0880ec5d577cef54acf89e9962306', 'e08ba9fcde3710e690ceb162a589de36',
-  'e284b03331d6ba7239b8de4044f390f5', 'e455ef47509ffeffe803eabe5fbe29d7', 'e4b2b7af9885369f6cb008286eef3660',
-  'e57f2261d194d03624bdd75cb2ee089e', 'e89cfae373a91b506e0db58a9dfacb79', 'eda97bb857bd3ce019896167436cbc06',
-  'f6392fbce62454b3238721daba1c1ca5',
+const ACCESS = new Map([
+  ['0b11650a84a19f4615b5f4a361758292', '7e76842593'],
+  ['0cda7e391d8f378c7296f294781ae2d2', '2e0012de7352beb678a449997f645cf8'],
+  ['13719f7c2be1f628438eb48691979aa2', '2fa35769cee6bf0a52bd8adcbe5e'],
+  ['1f190c87f31331a76a324ee16036a09a', '018951386a0aad349b499e3e546140aff0e68873'],
+  ['213a167f1b332843de58d186bd07e11b', '4617432a99e55f9f990545dbaa96e9b26009db4d38'],
+  ['2580038fa3769792f3622db6bb5dd298', '1b4ba051d1cfef7c48069496f8891b97e9'],
+  ['2e3f2b47f08da3b7726aa43a940c1c15', '2b84ef8de0a2ca9bfaeff14a'],
+  ['2e7ad15edeb2ff48621f6d10570bc1dd', '9bfe9cb95765f2e3a05239c51ab38a73e26dfce136'],
+  ['3305b9455b4c87db794320be84bf620b', '32e31ba993'],
+  ['358f6682b9610e5f2e299d16135b837b', '2b017a01'],
+  ['3974cc449f68a06519970c4f1852123f', '0d04a2811b749fbadaa1af44'],
+  ['3b148f98c66808162165ca42102bb992', '535367e60f5544018ee6b0934c'],
+  ['3b67301aff86aed56b366438b340ad8c', '01adfe6652ea0b'],
+  ['454fe88b97d8ebb391c7f0470d4196c8', 'ebb2d3b28bd89d'],
+  ['45ec1b71e7abba017edd15153f40ec73', '44985d64f5409643a80d9073d9fe0766d7e19ad8d3'],
+  ['512746f80f88c1a127961150b9214c59', 'bf6cee33'],
+  ['5a95f9a8dd2e73e58be5c5fdbe63e043', '1a4600af6b3921'],
+  ['5e711386d5953b4515475ff6747f852f', '9d6957f8dc23a26ba42c92b98f'],
+  ['5f0c059ae9a032b99373c4f18b84cbee', 'dd266032dc5d83cb924eeb8103d60d7928'],
+  ['602aab4782d5ba9a7ef729cb387c17f0', '5ab8277d'],
+  ['6ae516c3fa9603f5b0419000ce81802e', '5b80f12d'],
+  ['88ffd70fc9178c28373b275fddf1eaba', '2a1a173a61'],
+  ['8c2e1ede1899adefa9bdbbab195fc171', '99b7ecbecad387e301c18b0698'],
+  ['8c84faaf350cae7ca4a6d30e71c47fe5', '8219fd075b75530ff8e82a85ddb29f58d6'],
+  ['9871af08f2b18f039f8d992d1cdfe320', 'c54826e7f3ad57079660'],
+  ['9b0615782b7dc92e260cb563f4bb8c7b', 'fd19f616efba0405e4d46943ad7a256fbd'],
+  ['9f124973cb94bf3af3e4e13952fd3130', '81ef424609f172'],
+  ['a0062c9cb0bb19d5408f7d4807a72c27', 'a77d6b35acd33688ab96b409ea'],
+  ['a77b2fb56d696602c5c79658bb384bbc', 'd67045347f5fbfd7'],
+  ['b12edb7c7d93ed857fcbc308e6fad9f8', '81ed485f02071cf9ef07d883da54d193dab2ef55'],
+  ['b65e1a3324bca42c72c749116306c511', '21de04b46531b9809b73197a0088b1f1cab5b4d31c'],
+  ['bc9894780870b2b3b20b8b4f21a6328a', '791eea92'],
+  ['c515945b066584d2c281312c897da506', '43523ca44cbcfea9c204d51a'],
+  ['cdb2e35c81e8aca14f87c794f7bb7391', '8fa166d3e97bebd6'],
+  ['d21db95f1cb60f60eddf7c45ef05e032', 'cdd566e77ce2d7fdfa8a9af2756529d173'],
+  ['d47abb245682fb9d87a7880d175fe856', '8ed32b6774a6508907c6c26ca71a'],
+  ['d99d139636f1cd9411d028f3b677de7b', 'cf0b818f87f17ab0da77b7203a703d69c8837a988c'],
+  ['dbe0880ec5d577cef54acf89e9962306', '1511704aff'],
+  ['e08ba9fcde3710e690ceb162a589de36', '3e645364999787753a51598d6435bbb9d5'],
+  ['e284b03331d6ba7239b8de4044f390f5', 'e8898123'],
+  ['e455ef47509ffeffe803eabe5fbe29d7', '87326bb47c1fd36412347b841cd0fd4e'],
+  ['e4b2b7af9885369f6cb008286eef3660', '08a510da657e018a4fc92d385cac11c1fe'],
+  ['e57f2261d194d03624bdd75cb2ee089e', '243fda9f02661bf6f7927184386111b2'],
+  ['e89cfae373a91b506e0db58a9dfacb79', '94d015f08cece2b73f1e'],
+  ['eda97bb857bd3ce019896167436cbc06', 'd6c03926bae7323b842a05bf'],
+  ['f6392fbce62454b3238721daba1c1ca5', 'b94caf9d2a5b4882500cc3c36371'],
 ]);
 
 const normalizeCompany = (s) => {
@@ -147,9 +199,41 @@ const sha256 = (bytes) => {
   }
   return H.map((v) => (v >>> 0).toString(16).padStart(8, '0')).join('');
 };
-const isAllowedCompany = (input) => {
+const utf8 = (str) => new TextEncoder().encode(str);
+const nameKeystream = (key, n) => {
+  const out = [];
+  for (let i = 0; out.length < n; i++) {
+    const hex = sha256(utf8(`${NAME_SALT}${key}:${i}`));
+    for (let j = 0; j < hex.length && out.length < n; j += 2) out.push(parseInt(hex.slice(j, j + 2), 16));
+  }
+  return out;
+};
+// Returns the canonical company name for an allowed alias, or null.
+const findCompany = (input) => {
   const key = normalizeCompany(input);
-  return !!key && HASHES.has(sha256(new TextEncoder().encode(SALT + key)).slice(0, 32));
+  const enc = key && ACCESS.get(sha256(utf8(SALT + key)).slice(0, 32));
+  if (!enc) return null;
+  const bytes = enc.match(/../g).map((h) => parseInt(h, 16));
+  const ks = nameKeystream(key, bytes.length);
+  try { return new TextDecoder().decode(new Uint8Array(bytes.map((v, i) => v ^ ks[i]))); } catch (e) { return 'unknown'; }
+};
+
+// ---- Analytics (PostHog is initialised in <head>) ---------------------------
+// Fire-and-forget: a blocked or failed PostHog must never affect the page or the Figma link.
+const track = (event, props, options) => {
+  try { if (window.posthog && typeof window.posthog.capture === 'function') window.posthog.capture(event, props, options); } catch (e) {}
+};
+const CASE_NAME = 'prediction-mini-app';
+// What a visitor typed when access was denied, unless it looks like personal data or junk.
+const safeEnteredCompany = (raw) => {
+  const v = String(raw || '').replace(/\s+/g, ' ').trim();
+  const looksPersonal =
+    /\S+@\S+/.test(v) ||                                    // email
+    /(^|\s)(https?:\/\/|www\.)|\w\/\w/i.test(v) ||            // url
+    (v.match(/\d/g) || []).length >= 7 ||                   // phone or other long number
+    /\S{25,}/.test(v) ||                                    // one very long token
+    /(?=\S*\d)(?=\S*[a-zа-я])\S{16,}/i.test(v);           // long mixed letter/digit string
+  return looksPersonal ? '[redacted]' : v.slice(0, 80);
 };
 // New tab keeps the portfolio open; if the browser blocks it, open Figma in this tab instead.
 const openFigma = () => {
@@ -172,16 +256,25 @@ class Component extends DCLogic {
     const hasValue = e.target.value.trim() !== '';
     if (hasValue !== this.state.hasValue || this.state.error) this.setState({ hasValue, error: '' });
   };
+  componentDidMount() {
+    track('portfolio_case_opened', { case_name: CASE_NAME, page_path: window.location.pathname });
+    track('nda_gate_opened', { case_name: CASE_NAME });
+  }
   onSubmit = (e) => {
     e.preventDefault();
     const field = e.currentTarget.elements.company;
     if (!normalizeCompany(field.value)) return;
-    if (isAllowedCompany(field.value)) {
+    const company = findCompany(field.value);
+    if (company) {
       this.setState({ error: '' });
+      // sendBeacon so the events survive if Figma has to open in this same tab
+      track('company_access_granted', { company, case_name: CASE_NAME }, { transport: 'sendBeacon' });
+      track('full_case_opened', { company, case_name: CASE_NAME, destination: 'figma' }, { transport: 'sendBeacon' });
       openFigma();
     } else {
       this.setState({ error: NOT_FOUND });
       field.focus();
+      track('company_access_denied', { entered_company: safeEnteredCompany(field.value), case_name: CASE_NAME });
     }
   };
 
