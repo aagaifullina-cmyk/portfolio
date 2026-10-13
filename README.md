@@ -12,6 +12,7 @@ Personal portfolio site of Asya Gaifullina, Product · UX/UI designer.
 | `PredictionMiniApp.dc.html` | Access screen for the NDA case: an allowed company name opens the Figma prototype |
 | `BankingMiniApp.dc.html` | Public anonymized version of the NDA case ("View public version") |
 | `WeCoop.dc.html` | Case study: WeCoop — pricing and proposal system for designers |
+| `Privacy.dc.html` | Privacy notice (linked from every footer; no analytics on this page) |
 
 ## Structure
 

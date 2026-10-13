@@ -10,7 +10,8 @@
     posthog.init('phc_oBhD6PnEsdBfpRVgoYZJhS7HiNhBu589DcTwhUzNuvYk', {
         api_host: 'https://us.i.posthog.com',
         defaults: '2026-05-30',
-        person_profiles: 'identified_only',
+        cookieless_mode: 'always',
+        person_profiles: 'never',
         autocapture: false,
         capture_heatmaps: true,
         capture_dead_clicks: false,
@@ -88,6 +89,8 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
       <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
       <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
+      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
+      <a href="{{ privacyHref }}" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">Privacy</a>
     </nav>
   </footer>
 </div>
@@ -285,6 +288,7 @@ class Component extends DCLogic {
       onSubmit: this.onSubmit, onInput: this.onInput, onClose: this.onClose,
       homeHref: IS_FILE ? 'Portfolio.dc.html' : '/',
       publicHref: IS_FILE ? 'BankingMiniApp.dc.html' : '/banking-mini-app',
+      privacyHref: IS_FILE ? 'Privacy.dc.html' : '/privacy',
     };
   }
 }
