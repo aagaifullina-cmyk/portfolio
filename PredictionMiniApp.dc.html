@@ -51,17 +51,16 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 .pm-go{position:absolute;top:50%;right:6px;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;border-radius:10px;background:transparent;color:rgb(39,32,40);cursor:pointer;transition:opacity .2s ease,color .2s ease;-webkit-tap-highlight-color:transparent}
 .pm-go:hover{opacity:.6}
 .pm-go:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:0}
-.pm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-12px;border-radius:10px;color:rgb(39,32,40);transition:opacity .2s ease,background-color .2s ease;-webkit-tap-highlight-color:transparent}
+.pm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-12px -12px 0 0;border-radius:10px;color:rgb(39,32,40);transition:opacity .2s ease,background-color .2s ease;-webkit-tap-highlight-color:transparent}
 .pm-close:hover{opacity:1;background-color:rgba(39,32,40,0.04)}
 .pm-close:active{background-color:rgba(39,32,40,0.07)}
 .pm-go[disabled]{color:rgb(198,198,198);cursor:default;opacity:1}
 </style>
 </helmet>
-<div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <header style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+<div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; position: relative;">
+  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px);">
     <a class="pm-close" href="{{ publicHref }}" onClick="{{ onClose }}" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
-  </header>
+  </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 20px);">
       <div style="display: flex; flex-direction: column; gap: 4px;">
@@ -83,16 +82,6 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
       <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4;">View public version</a>
     </div>
   </main>
-  <footer style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
-    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
-    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
-      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
-      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
-      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="{{ privacyHref }}" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">Privacy</a>
-    </nav>
-  </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
@@ -259,8 +248,9 @@ class Component extends DCLogic {
     const hasValue = e.target.value.trim() !== '';
     if (hasValue !== this.state.hasValue || this.state.error) this.setState({ hasValue, error: '' });
   };
+  // This page is the access form itself: it only opens from "Open full case" (public case) or the
+  // homepage card, so loading it is the gate opening. Sent once per open; typing sends nothing.
   componentDidMount() {
-    track('portfolio_case_opened', { case_name: CASE_NAME, page_path: window.location.pathname });
     track('nda_gate_opened', { case_name: CASE_NAME });
   }
   onSubmit = (e) => {
@@ -286,9 +276,7 @@ class Component extends DCLogic {
     return {
       error, invalid: error ? 'true' : 'false', goDisabled: !hasValue,
       onSubmit: this.onSubmit, onInput: this.onInput, onClose: this.onClose,
-      homeHref: IS_FILE ? 'Portfolio.dc.html' : '/',
       publicHref: IS_FILE ? 'BankingMiniApp.dc.html' : '/banking-mini-app',
-      privacyHref: IS_FILE ? 'Privacy.dc.html' : '/privacy',
     };
   }
 }
