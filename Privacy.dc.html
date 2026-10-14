@@ -23,39 +23,67 @@ a{color:inherit;text-decoration:none;transition:opacity .2s ease}
 a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-.pm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin-right:-12px;border-radius:10px;color:rgb(39,32,40);transition:opacity .2s ease,background-color .2s ease;-webkit-tap-highlight-color:transparent}
+.pm-close{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:-12px -12px 0 0;border-radius:10px;color:rgb(39,32,40);transition:opacity .2s ease,background-color .2s ease;-webkit-tap-highlight-color:transparent}
 .pm-close:hover{opacity:1;background-color:rgba(39,32,40,0.04)}
 .pm-close:active{background-color:rgba(39,32,40,0.07)}
 .pm-close:focus-visible{outline-offset:0}
+.pv-sec{display:flex;flex-direction:column;gap:8px}
+.pv-h2{font-weight:500;font-size:15px;line-height:1.4;color:rgb(0,0,0)}
+.pv-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.pv-list li{position:relative;padding-left:1.1em}
+.pv-list li::before{content:"–";position:absolute;left:0;color:rgb(157,157,157)}
 </style>
 </helmet>
 <!-- No analytics on this page on purpose. -->
-<div data-screen-label="Privacy notice" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <header style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+<div data-screen-label="Privacy notice" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px);">
     <a class="pm-close" href="{{ homeHref }}" onClick="{{ onClose }}" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
-  </header>
+  </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
-    <article style="width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: clamp(20px, calc(20px + (100vw - 375px) * 0.0052083), 24px);">
-      <h1 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Privacy Notice</h1>
-      <div style="display: flex; flex-direction: column; gap: 12px; font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>This portfolio uses PostHog analytics to understand how visitors interact with the website and case studies.</p>
-        <p>Analytics may include page views, case views, scroll depth, referral and UTM data, and interactions with access to selected case studies.</p>
-        <p>If you enter a company name to request access to a private case study, the company name may be recorded for access analytics.</p>
-        <p>I do not intentionally collect names, email addresses, or other directly identifying personal information through analytics. Session recordings are disabled.</p>
-        <p>Analytics data is processed using PostHog.</p>
-        <p>For privacy-related questions, contact:<br><a href="mailto:aa.gaifullina@gmail.com" style="color: rgb(0,0,0);">aa.gaifullina@gmail.com</a></p>
+    <article style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 20px;">
+      <h1 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Privacy Notice</h1>
+      <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: 14px; line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
+        <section class="pv-sec">
+          <p>This portfolio uses PostHog analytics to understand how visitors interact with the website and case studies and to improve the portfolio experience.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Data collected</h2>
+          <p>Analytics may include:</p>
+          <ul class="pv-list"><li>page views and case views;</li><li>scroll depth;</li><li>referral and UTM data;</li><li>basic technical information required for analytics;</li><li>interactions with access to selected private case studies.</li></ul>
+          <p>If you enter a company name to access a private case study, the company name may be recorded for access analytics. Unsuccessful access attempts may also be recorded in order to identify missing company aliases.</p>
+          <p>I do not intentionally collect names, email addresses, phone numbers, or other directly identifying personal information through analytics.</p>
+          <p>Session recordings are disabled.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Cookies and tracking</h2>
+          <p>PostHog is configured in cookieless mode. The website does not use analytics cookies or persistent visitor profiles for this purpose.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Purpose and legal basis</h2>
+          <p>The data is processed for the legitimate interest of understanding how the portfolio is used, evaluating the effectiveness of case studies, and improving the website experience.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Data processor and international transfer</h2>
+          <p>Analytics is processed using PostHog.</p>
+          <p>The current PostHog project is hosted in the United States, so analytics data may be processed outside Serbia and the European Economic Area using the safeguards provided by PostHog for international data transfers.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Retention</h2>
+          <p>Analytics data may be retained for up to 12 months unless it is deleted earlier.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Your rights</h2>
+          <p>You may request access to, correction of, or deletion of personal data related to you, or object to its processing.</p>
+          <p>You may also contact the competent data protection authority if you believe your data protection rights have been violated.</p>
+        </section>
+        <section class="pv-sec">
+          <h2 class="pv-h2">Data controller</h2>
+          <p>Asya Gaifullina<br>Serbia</p>
+          <p>Privacy-related questions:<br><a href="mailto:aa.gaifullina@gmail.com" style="color: rgb(0,0,0);">aa.gaifullina@gmail.com</a></p>
+        </section>
       </div>
     </article>
   </main>
-  <footer style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
-    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
-    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
-      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
-      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
-    </nav>
-  </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>

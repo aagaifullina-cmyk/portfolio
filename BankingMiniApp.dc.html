@@ -286,11 +286,12 @@ const trackScrollDepth = (caseName) => {
   onScroll(); // a page shorter than the screen already counts as seen
   return stop;
 };
+// Explicit per-page case id for analytics (this page is the public, anonymized case).
+const CASE_NAME = 'banking-mini-app';
 class Component extends DCLogic {
   componentDidMount() {
-    // public version of the Prediction Mini App case: same case_name as the NDA access screen
-    track('portfolio_case_opened', { case_name: 'prediction-mini-app', page_path: window.location.pathname });
-    this.stopDepth = trackScrollDepth('prediction-mini-app');
+    track('portfolio_case_opened', { case_name: CASE_NAME, page_path: window.location.pathname });
+    this.stopDepth = trackScrollDepth(CASE_NAME);
     this.rio = setupReveal(); this.unscale = setupScrollScale();
   }
   componentWillUnmount() { if (this.stopDepth) this.stopDepth(); if (this.rio) this.rio.disconnect(); if (this.unscale) this.unscale(); }
