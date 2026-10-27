@@ -25,7 +25,7 @@
 </script>
 <link rel="stylesheet" href="lang.css?v=3">
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=3"></script>
+<script src="i18n/site-texts.js?v=4"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -38,6 +38,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
 <style>
+/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
+   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
+@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -46,7 +49,7 @@ a{color:inherit;text-decoration:none;transition:opacity .2s ease}
 a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-.pm-field{width:100%;height:56px;padding:0 20px;border:1px solid rgba(39,32,40,0.08);border-radius:14px;background:rgb(243,242,243);color:rgb(39,32,40);font:inherit;font-weight:300;font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px);outline:none;transition:border-color .2s ease;-webkit-appearance:none;appearance:none}
+.pm-field{width:100%;height:56px;padding:0 20px;border:1px solid rgba(39,32,40,0.08);border-radius:14px;background:rgb(243,242,243);color:rgb(39,32,40);font:inherit;font-weight:300;font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1));outline:none;transition:border-color .2s ease;-webkit-appearance:none;appearance:none}
 .pm-field::placeholder{color:rgb(157,157,157);opacity:1}
 .pm-field:focus{border-color:rgba(39,32,40,0.2)}
 .pm-field{padding-right:60px}
@@ -68,8 +71,8 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 20px);">
       <div style="display: flex; flex-direction: column; gap: 4px;">
-        <p id="gate-intro" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">{{ t.gate_intro }}</p>
-        <p id="company-hint" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">{{ t.gate_hint }}</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">{{ t.gate_contact }}</a></p>
+        <p id="gate-intro" style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">{{ t.gate_intro }}</p>
+        <p id="company-hint" style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">{{ t.gate_hint }}</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">{{ t.gate_contact }}</a></p>
       </div>
       <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="display: flex; flex-direction: column; gap: 10px;">
         <label for="company" class="pm-sr">{{ t.company_label }}</label>
@@ -80,10 +83,10 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
           </button>
         </div>
         <sc-if value="{{ error }}">
-          <p id="company-error" role="alert" style="font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
+          <p id="company-error" role="alert" style="font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px) * var(--fs, 1)); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
         </sc-if>
       </form>
-      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;">{{ t.public_link }}</a>
+      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em;">{{ t.public_link }}</a>
     </div>
   </main>
 </div>
@@ -102,6 +105,8 @@ const IS_FILE = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.
 // normalizeCompany() and nameKeystream() must stay identical to normalize() and keystream()
 // in tools/build_allowlist.py.
 const FIGMA_URL = 'https://www.figma.com/proto/smp4Ay02i5IYJhocPTG9wW?node-id=0-1&t=q0EjnMiTrwploH5Z-6&scaling=scale-down-width';
+// Russian version of the prototype, opened when the site is in RU (scaling=scale-down-width is Figma's "Fit width").
+const FIGMA_URL_RU = 'https://www.figma.com/proto/smp4Ay02i5IYJhocPTG9wW/Mini-App?node-id=46-602&viewport=94%2C219%2C0.12&t=Lm2s0W6gx8AjV3H7-1&scaling=scale-down-width&content-scaling=fixed&starting-point-node-id=46%3A602&page-id=0%3A1';
 const SALT = 'asya-portfolio/prediction-nda:';
 const NAME_SALT = 'asya-portfolio/prediction-nda/name:';
 const NOT_FOUND = 'Company not found.';
@@ -314,8 +319,9 @@ const safeEnteredCompany = (raw) => {
 };
 // New tab keeps the portfolio open; if the browser blocks it, open Figma in this tab instead.
 const openFigma = () => {
-  const w = window.open(FIGMA_URL, '_blank');
-  if (w) { try { w.opener = null; } catch (e) {} } else location.href = FIGMA_URL;
+  const url = window.siteLang && window.siteLang.get() === 'ru' ? FIGMA_URL_RU : FIGMA_URL;
+  const w = window.open(url, '_blank');
+  if (w) { try { w.opener = null; } catch (e) {} } else location.href = url;
 };
 
 class Component extends DCLogic {
