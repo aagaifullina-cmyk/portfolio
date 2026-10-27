@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="favicon.png?v=2">
+<link rel="stylesheet" href="lang.css?v=3">
+<script src="lang.js?v=3"></script>
+<script src="i18n/site-texts.js?v=3"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -36,50 +39,51 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 </helmet>
 <!-- No analytics on this page on purpose. -->
 <div data-screen-label="Privacy notice" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px);">
-    <a class="pm-close" href="{{ homeHref }}" onClick="{{ onClose }}" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); display: flex; align-items: center; gap: 8px; margin: -12px -12px 0 0;">
+    <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
+    <a class="pm-close" style="margin: 0;" href="{{ homeHref }}" onClick="{{ onClose }}" aria-label="{{ t.close_label }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
   </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <article style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 20px;">
-      <h1 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Privacy Notice</h1>
+      <h1 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.title }}</h1>
       <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: 14px; line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
         <section class="pv-sec">
-          <p>This portfolio uses PostHog analytics to understand how visitors interact with the website and case studies and to improve the portfolio experience.</p>
+          <p>{{ t.intro }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Data collected</h2>
-          <p>Analytics may include:</p>
-          <ul class="pv-list"><li>page views and case views;</li><li>scroll depth;</li><li>referral and UTM data;</li><li>basic technical information required for analytics;</li><li>interactions with access to selected private case studies.</li></ul>
-          <p>If you enter a company name to access a private case study, the company name may be recorded for access analytics. Unsuccessful access attempts may also be recorded in order to identify missing company aliases.</p>
-          <p>I do not intentionally collect names, email addresses, phone numbers, or other directly identifying personal information through analytics.</p>
-          <p>Session recordings are disabled.</p>
+          <h2 class="pv-h2">{{ t.data_h }}</h2>
+          <p>{{ t.data_may }}</p>
+          <ul class="pv-list"><li>{{ t.data_li1 }}</li><li>{{ t.data_li2 }}</li><li>{{ t.data_li3 }}</li><li>{{ t.data_li4 }}</li><li>{{ t.data_li5 }}</li></ul>
+          <p>{{ t.data_company }}</p>
+          <p>{{ t.data_personal }}</p>
+          <p>{{ t.data_replay }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Cookies and tracking</h2>
-          <p>PostHog is configured in cookieless mode. The website does not use analytics cookies or persistent visitor profiles for this purpose.</p>
+          <h2 class="pv-h2">{{ t.cookies_h }}</h2>
+          <p>{{ t.cookies_p }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Purpose and legal basis</h2>
-          <p>The data is processed for the legitimate interest of understanding how the portfolio is used, evaluating the effectiveness of case studies, and improving the website experience.</p>
+          <h2 class="pv-h2">{{ t.purpose_h }}</h2>
+          <p>{{ t.purpose_p }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Data processor and international transfer</h2>
-          <p>Analytics is processed using PostHog.</p>
-          <p>The current PostHog project is hosted in the United States, so analytics data may be processed outside Serbia and the European Economic Area using the safeguards provided by PostHog for international data transfers.</p>
+          <h2 class="pv-h2">{{ t.processor_h }}</h2>
+          <p>{{ t.processor_p1 }}</p>
+          <p>{{ t.processor_p2 }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Retention</h2>
-          <p>Analytics data may be retained for up to 12 months unless it is deleted earlier.</p>
+          <h2 class="pv-h2">{{ t.retention_h }}</h2>
+          <p>{{ t.retention_p }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Your rights</h2>
-          <p>You may request access to, correction of, or deletion of personal data related to you, or object to its processing.</p>
-          <p>You may also contact the competent data protection authority if you believe your data protection rights have been violated.</p>
+          <h2 class="pv-h2">{{ t.rights_h }}</h2>
+          <p>{{ t.rights_p1 }}</p>
+          <p>{{ t.rights_p2 }}</p>
         </section>
         <section class="pv-sec">
-          <h2 class="pv-h2">Data controller</h2>
-          <p>Asya Gaifullina<br>Serbia</p>
-          <p>Privacy-related questions:<br><a href="mailto:aa.gaifullina@gmail.com" style="color: rgb(0,0,0);">aa.gaifullina@gmail.com</a></p>
+          <h2 class="pv-h2">{{ t.controller_h }}</h2>
+          <p>Asya Gaifullina<br>{{ t.controller_country }}</p>
+          <p>{{ t.questions }}<br><a href="mailto:aa.gaifullina@gmail.com" style="color: rgb(0,0,0);">aa.gaifullina@gmail.com</a></p>
         </section>
       </div>
     </article>
@@ -88,8 +92,16 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const IS_FILE = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
+const PAGE = 'privacy';
+// Texts live in i18n/site-texts.js and i18n/case-texts.js (EN + RU); the language comes from lang.js.
+const pageText = (lang) => (window.siteLang ? window.siteLang.texts(PAGE, lang) : {});
+const setTitle = (t) => { if (window.siteLang) window.siteLang.title(t.page_title); };
 
 class Component extends DCLogic {
+  state = { lang: window.siteLang ? window.siteLang.get() : 'en' };
+  onLang = (e) => { this.setState({ lang: e.detail.lang }); setTitle(pageText(e.detail.lang)); };
+  componentDidMount() { window.addEventListener('site-langchange', this.onLang); setTitle(pageText(this.state.lang)); }
+  componentWillUnmount() { window.removeEventListener('site-langchange', this.onLang); }
   // Close returns to the page the visitor came from (any page of this site), otherwise to the homepage.
   onClose = (e) => {
     try {
@@ -100,7 +112,7 @@ class Component extends DCLogic {
     } catch (err) {}
   };
   renderVals() {
-    return { homeHref: IS_FILE ? 'Portfolio.dc.html' : '/', onClose: this.onClose };
+    return { t: pageText(this.state.lang), homeHref: IS_FILE ? 'Portfolio.dc.html' : '/', onClose: this.onClose };
   }
 }
 </script>
