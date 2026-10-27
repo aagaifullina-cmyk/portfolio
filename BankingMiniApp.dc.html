@@ -23,6 +23,10 @@
         capture_performance: false,
     })
 </script>
+<link rel="stylesheet" href="lang.css?v=3">
+<script src="lang.js?v=3"></script>
+<script src="i18n/site-texts.js?v=3"></script>
+<script src="i18n/case-texts.js?v=3"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -45,6 +49,10 @@ a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 video{display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+/* Avatar: same size as on the home page (48 × --m on mobile, 72 × --u on desktop) */
+:root{--u:min(calc(100vw / 1882), calc(100vh / 1100), 1.2px);--m:min(calc(100vw / 375), 1.25px)}
+.site-avatar{width:calc(48 * var(--m));height:calc(48 * var(--m));border-radius:calc(7.092 * var(--m))}
+@media (min-width: 1024px){.site-avatar{width:calc(72 * var(--u));height:calc(72 * var(--u));border-radius:calc(13.437 * var(--u))}}
 [data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
 [data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
 /* Stage texts: leading trimmed at block edges, as in the Figma layout */
@@ -57,16 +65,19 @@ video{display:block}
 </helmet>
 <div data-screen-label="Banking Mini App case" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
   <header style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px);">
-    <a href="{{ homeHref }}" aria-label="Back to homepage" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; width: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); height: clamp(48px, calc(48px + (100vw - 375px) * 0.015625), 72px); border-radius: clamp(7.092px, calc(7.092px + (100vw - 375px) * 0.0041309), 13.437px); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+      <a href="{{ homeHref }}" aria-label="{{ t.home_label }}" class="site-avatar" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
+      <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
+    </div>
     <div style="display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
       <h1 style="font-weight: 400; font-size: clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px); line-height: 1.2; color: rgb(39,32,40); text-box: trim-both cap alphabetic;">NDA</h1>
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
-        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">Mini App for One of Russia’s Largest Banks</p>
-        <ul aria-label="Tags" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
+        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.subtitle }}</p>
+        <ul aria-label="{{ t.tags_label }}" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
           <li style="text-box: trim-both cap alphabetic;">MVP</li>
-          <li style="text-box: trim-both cap alphabetic;">iOS Mini App</li>
+          <li style="text-box: trim-both cap alphabetic;">{{ t.tag_mini_app }}</li>
           <li style="text-box: trim-both cap alphabetic;">B2C</li>
-          <li style="text-box: trim-both cap alphabetic;">Fintech</li>
+          <li style="text-box: trim-both cap alphabetic;">{{ t.tag_fintech }}</li>
         </ul>
       </div>
     </div>
@@ -74,104 +85,103 @@ video{display:block}
 
   <main style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
     <div style="container-type: inline-size;">
-      <img src="assets/banking-hero.webp" alt="Hand holding a phone with the banking mini app" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/banking-hero.webp" alt="{{ t.hero_alt }}" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Context</h2>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.context_label }}</h2>
       <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">A consumer Mini App under NDA</h3>
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.context_heading }}</h3>
         <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I worked on an MVP for a major banking ecosystem. The product and its core mechanics are under NDA, so this public case focuses on my process, role and design approach.</p>
+          <p>{{ t.context_text1 }}</p>
         </div>
       <div>
         <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-          <h4 style="margin: 0; font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">My role</h4>
-          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>Product Designer — user flows, wireframes, interaction logic, prototypes, visual direction, states and edge cases, handoff and design review.</p></div>
+          <h4 style="margin: 0; font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row1_title }}</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row1_text }}</p></div>
         </div>
         <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
         <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-          <h4 style="margin: 0; font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Team</h4>
-          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>I worked with the product stakeholders, the development team, and prepared briefs for illustration and motion.</p></div>
+          <h4 style="margin: 0; font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row2_title }}</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row2_text }}</p></div>
         </div>
       </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <img src="assets/nda-case-01.webp" alt="Benchmark and competitor research boards (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-01.webp" alt="{{ t.image1_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Discovery</h2>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.discovery_label }}</h2>
       <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Research first, assumptions second</h3>
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.discovery_heading }}</h3>
         <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I started with benchmarking and competitor research to understand familiar patterns, entry barriers and opportunities for differentiation.</p>
-          <p>We also defined several product hypotheses around behaviour, engagement and the core interaction model. Specific findings and hypotheses are available in the full case.</p>
+          <p>{{ t.discovery_text1 }}</p>
+          <p>{{ t.discovery_text2 }}</p>
         </div>
-      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">Open full case →</a></p>
+      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <img src="assets/nda-case-02.webp" alt="Visual references and concept boards (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-02.webp" alt="{{ t.image2_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Validation</h2>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.prototype_label }}</h2>
       <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Test before handoff</h3>
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.prototype_heading }}</h3>
         <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I used interactive prototypes to check the main flows before moving into final UI.</p>
-          <p>Testing helped reveal where users needed more context, clearer feedback or a simpler sequence of actions.</p>
-        </div>
-      </div>
-    </section>
-    <div style="container-type: inline-size;">
-      <img src="assets/nda-case-03.webp" alt="Prototype flows and design iterations (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-    </div>
-    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Design &amp; Iteration</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">From concept to product</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I expanded the chosen direction across the MVP, designing key flows, reusable components, states and edge cases.</p>
-          <p>As the brief evolved, I explored 15+ visual concepts, gradually narrowing the direction while keeping the core logic consistent.</p>
+          <p>{{ t.prototype_text1 }}</p>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <img src="assets/nda-case-04.webp" alt="MVP screen map with flows and states (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-03.webp" alt="{{ t.image3_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Outcome</h2>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.design_iteration_label }}</h2>
       <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">An MVP ready to evolve</h3>
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.design_iteration_heading }}</h3>
         <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>The result was an MVP with tested core flows, a defined visual direction and a reusable UI system ready for implementation.</p>
-          <p>The first release was designed as a starting point for further product and visual iterations based on post-launch data.</p>
+          <p>{{ t.design_iteration_text1 }}</p>
+          <p>{{ t.design_iteration_text2 }}</p>
         </div>
-      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">Open full case →</a></p>
+      </div>
+    </section>
+    <div style="container-type: inline-size;">
+      <img src="assets/nda-case-04.webp" alt="{{ t.image4_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+    </div>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.outcome_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.outcome_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>{{ t.outcome_text1 }}</p>
+          <p>{{ t.outcome_text2 }}</p>
+        </div>
+      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
       </div>
     </section>
   </main>
 
   <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
-    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.explore_heading }}</h2>
     <ul>
       <li style="width: max(63.3663%, min(100%, 736px)); container-type: inline-size;">
         <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
           <div style="position: relative; width: 100%; height: calc(100cqw * 0.52658 + 59.4px); overflow: hidden; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
             <video src="media/1.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
           </div>
-          <h3 style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.25; text-box: trim-both cap alphabetic;">Pricing System for a Designer Marketplace</h3>
+          <h3 style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.explore_card_title }}</h3>
         </a>
       </li>
     </ul>
   </section>
 
-  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; color: rgb(0,0,0);">
-    <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">Privacy Policy</a>
-    <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
-      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
+  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); line-height: 1.25; color: rgb(0,0,0);">
+    <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">{{ t.privacy_link }}</a>
+    <nav aria-label="{{ t.contacts_label }}" style="display: flex; align-items: center; gap: 8px;">
+      <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">{{ t.telegram }}</a>
       <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">{{ t.mail }}</a>
     </nav>
   </footer>
 </div>
@@ -264,16 +274,25 @@ const trackScrollDepth = (caseName) => {
 };
 // Explicit per-page case id for analytics (this page is the public, anonymized case).
 const CASE_NAME = 'banking-mini-app';
+const PAGE = CASE_NAME;
+// Texts live in i18n/site-texts.js and i18n/case-texts.js (EN + RU); the language comes from lang.js.
+const pageText = (lang) => (window.siteLang ? window.siteLang.texts(PAGE, lang) : {});
+const setTitle = (t) => { if (window.siteLang) window.siteLang.title(t.page_title); };
 class Component extends DCLogic {
+  state = { lang: window.siteLang ? window.siteLang.get() : 'en' };
+  onLang = (e) => { this.setState({ lang: e.detail.lang }); setTitle(pageText(e.detail.lang)); };
   componentDidMount() {
+    window.addEventListener('site-langchange', this.onLang);
+    setTitle(pageText(this.state.lang));
     track('portfolio_case_opened', { case_name: CASE_NAME, page_path: window.location.pathname });
     this.stopDepth = trackScrollDepth(CASE_NAME);
     this.rio = setupReveal(); this.unscale = setupScrollScale();
   }
-  componentWillUnmount() { if (this.stopDepth) this.stopDepth(); if (this.rio) this.rio.disconnect(); if (this.unscale) this.unscale(); }
+  componentWillUnmount() {
+    window.removeEventListener('site-langchange', this.onLang); if (this.stopDepth) this.stopDepth(); if (this.rio) this.rio.disconnect(); if (this.unscale) this.unscale(); }
   renderVals() {
     const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
-    return { homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop', fullCaseHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
+    return { t: pageText(this.state.lang), homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop', fullCaseHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
   }
 }
 </script>

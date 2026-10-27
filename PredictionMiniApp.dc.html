@@ -23,6 +23,9 @@
         capture_performance: false,
     })
 </script>
+<link rel="stylesheet" href="lang.css?v=3">
+<script src="lang.js?v=3"></script>
+<script src="i18n/site-texts.js?v=3"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -58,20 +61,21 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 </style>
 </helmet>
 <div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; position: relative;">
-  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px);">
-    <a class="pm-close" href="{{ publicHref }}" onClick="{{ onClose }}" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
+  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); display: flex; align-items: center; gap: 8px; margin: -12px -12px 0 0;">
+    <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
+    <a class="pm-close" style="margin: 0;" href="{{ publicHref }}" onClick="{{ onClose }}" aria-label="{{ t.close_label }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
   </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 20px);">
       <div style="display: flex; flex-direction: column; gap: 4px;">
-        <p id="gate-intro" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">Enter your company name to view the full case on Figma.</p>
-        <p id="company-hint" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">Can’t find it?</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">Contact me</a></p>
+        <p id="gate-intro" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">{{ t.gate_intro }}</p>
+        <p id="company-hint" style="font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">{{ t.gate_hint }}</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">{{ t.gate_contact }}</a></p>
       </div>
       <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="display: flex; flex-direction: column; gap: 10px;">
-        <label for="company" class="pm-sr">Company name</label>
+        <label for="company" class="pm-sr">{{ t.company_label }}</label>
         <div style="position: relative;">
-          <input class="pm-field" id="company" name="company" type="text" placeholder="Company name" autoComplete="organization" autoCapitalize="words" autoCorrect="off" spellCheck="false" enterKeyHint="go" aria-invalid="{{ invalid }}" aria-describedby="gate-intro company-hint" onInput="{{ onInput }}">
-          <button class="pm-go" type="submit" aria-label="View case" disabled="{{ goDisabled }}">
+          <input class="pm-field" id="company" name="company" type="text" placeholder="{{ t.company_placeholder }}" autoComplete="organization" autoCapitalize="words" autoCorrect="off" spellCheck="false" enterKeyHint="go" aria-invalid="{{ invalid }}" aria-describedby="gate-intro company-hint" onInput="{{ onInput }}">
+          <button class="pm-go" type="submit" aria-label="{{ t.go_label }}" disabled="{{ goDisabled }}">
             <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15.5M13.5 5.5 20 12l-6.5 6.5"></path></svg>
           </button>
         </div>
@@ -79,7 +83,7 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
           <p id="company-error" role="alert" style="font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
         </sc-if>
       </form>
-      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px); line-height: 1.4;">View public version</a>
+      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px); line-height: 1.4; letter-spacing: 0.01em;">{{ t.public_link }}</a>
     </div>
   </main>
 </div>
@@ -120,6 +124,7 @@ const ACCESS = new Map([
   ['19340b5fe802e7dc3d2a7301cec9f332', 'ab851d8baa8a6a2ebb4d3f84452c76fda31c3f4b95b8f6'],
   ['1c961b7044f66a0643d4c2b32627ace3', '158a8b2c64c772a0'],
   ['1f190c87f31331a76a324ee16036a09a', '018951386a0aad349b499e3e546140aff0e68873'],
+  ['1f215a40397147fb2d31e6a4229708af', '4c6b9cd51eecd0ab'],
   ['213a167f1b332843de58d186bd07e11b', '4617432a99e55f9f990545dbaa96e9b26009db4d38'],
   ['243383b667309e3478632c9ba0572923', '20e3a0'],
   ['2580038fa3769792f3622db6bb5dd298', '1b4ba051d1cfef7c48069496f8891b97e9'],
@@ -164,6 +169,7 @@ const ACCESS = new Map([
   ['84a28c4e1b788f68a254493d8f5174d5', '68a19f3581766d5e6d4574c99b04'],
   ['88ffd70fc9178c28373b275fddf1eaba', '2a1a173a61'],
   ['8c84faaf350cae7ca4a6d30e71c47fe5', '8219fd075b75530ff8e82a85ddb29f58d6'],
+  ['8d8637aca9e7f4a65e1b3966bcffe7fe', 'a8e9ce37ff61d8d0e6ab0fbfd28ca7e08dfe6de48c443ce491'],
   ['8e112bc3ee152f6e9b22132595dafb60', '9339d0bf9705863514fb19b1'],
   ['9067baf4252d678ce77105e4ed3cb89e', '40862f15b3cb426e884d15a0'],
   ['91e6504b082713a383d1afa5c9977ac3', 'cd3cd06a6a4b11a5e1c4c710'],
@@ -195,6 +201,7 @@ const ACCESS = new Map([
   ['c678524fda5eb1f3709e76a2ebd59eed', '882a713803986e97830658ae'],
   ['c812786bc8ca20c6b53ae5754245c18a', 'ff5f951c68d93ef19b9a49'],
   ['c9fd099ee7bed1a01a955634a2f25383', 'c3653db2c354588953a2d528a9701b59'],
+  ['ca8c9a98995ffbb5ea9c1b75da0bcd55', '9b5d611887ef0a35761e13ec6324f00f43'],
   ['cb93bdfc7696a0b55199063dc0de6b4c', 'ed848caebdbeb40521b3d7938d6b3c88'],
   ['cc05e6d73dd6329376b7fffe93e62887', '4e8c'],
   ['cdb2e35c81e8aca14f87c794f7bb7391', '8fa166d3e97bebd6'],
@@ -205,10 +212,12 @@ const ACCESS = new Map([
   ['d976a595b1aeea0979f200b152b73658', '473577'],
   ['d99d139636f1cd9411d028f3b677de7b', 'cf0b818f87f17ab0da77b7203a703d69c8837a988c'],
   ['dbe0880ec5d577cef54acf89e9962306', '1511704aff'],
+  ['dd24b7fb7a3accb1e6f2b8fde247e491', '79bea0'],
   ['dd3bf7bd0fa681fa1c760f8eb292533c', 'f57182b5da7a4f85519a57e551b411f85969a424a698c1cae545af'],
   ['e08ba9fcde3710e690ceb162a589de36', '3e645364999787753a51598d6435bbb9d5'],
   ['e107675cefcbde8634aebdb6e377b869', '9d1e91f216f8443e18'],
   ['e284b03331d6ba7239b8de4044f390f5', 'e8898123'],
+  ['e2c4f00f3bea30e0c94e8323c9396aaf', 'eed6a0eb91da71'],
   ['e455ef47509ffeffe803eabe5fbe29d7', '87326bb47c1fd36412347b841cd0fd4e'],
   ['e4b2b7af9885369f6cb008286eef3660', '08a510da657e018a4fc92d385cac11c1fe'],
   ['e57f2261d194d03624bdd75cb2ee089e', '243fda9f02661bf6f7927184386111b2'],
@@ -288,6 +297,10 @@ const track = (event, props, options) => {
   try { if (window.posthog && typeof window.posthog.capture === 'function') window.posthog.capture(event, props, options); } catch (e) {}
 };
 const CASE_NAME = 'prediction-mini-app';
+const PAGE = 'nda-gate';
+// Texts live in i18n/site-texts.js and i18n/case-texts.js (EN + RU); the language comes from lang.js.
+const pageText = (lang) => (window.siteLang ? window.siteLang.texts(PAGE, lang) : {});
+const setTitle = (t) => { if (window.siteLang) window.siteLang.title(t.page_title); };
 // What a visitor typed when access was denied, unless it looks like personal data or junk.
 const safeEnteredCompany = (raw) => {
   const v = String(raw || '').replace(/\s+/g, ' ').trim();
@@ -306,7 +319,9 @@ const openFigma = () => {
 };
 
 class Component extends DCLogic {
-  state = { error: '', hasValue: false };
+  state = { error: '', hasValue: false, lang: window.siteLang ? window.siteLang.get() : 'en' };
+  onLang = (e) => { this.setState({ lang: e.detail.lang }); setTitle(pageText(e.detail.lang)); };
+  componentWillUnmount() { window.removeEventListener('site-langchange', this.onLang); }
 
   onClose = (e) => {
     try {
@@ -323,6 +338,8 @@ class Component extends DCLogic {
   // This page is the access form itself: it only opens from "Open full case" (public case) or the
   // homepage card, so loading it is the gate opening. Sent once per open; typing sends nothing.
   componentDidMount() {
+    window.addEventListener('site-langchange', this.onLang);
+    setTitle(pageText(this.state.lang));
     track('nda_gate_opened', { case_name: CASE_NAME });
   }
   onSubmit = (e) => {
@@ -345,8 +362,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const { error, hasValue } = this.state;
+    const t = pageText(this.state.lang);
     return {
-      error, invalid: error ? 'true' : 'false', goDisabled: !hasValue,
+      t, error: error ? t.not_found : '', invalid: error ? 'true' : 'false', goDisabled: !hasValue,
       onSubmit: this.onSubmit, onInput: this.onInput, onClose: this.onClose,
       publicHref: IS_FILE ? 'BankingMiniApp.dc.html' : '/banking-mini-app',
     };
