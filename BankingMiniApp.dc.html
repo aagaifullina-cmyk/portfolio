@@ -47,6 +47,10 @@ video{display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 [data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
 [data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
+/* Stage texts: leading trimmed at block edges, as in the Figma layout */
+.cs-text > p:first-child{text-box-trim:trim-start;text-box-edge:cap alphabetic}
+.cs-text > p:last-child{text-box-trim:trim-end;text-box-edge:cap alphabetic}
+.cs-text > p:only-child{text-box:trim-both cap alphabetic}
 [data-reveal="in"]{opacity:1;transform:none;transition:opacity .55s ease-out,transform .55s ease-out}
 @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
@@ -72,110 +76,84 @@ video{display:block}
     <div style="container-type: inline-size;">
       <img src="assets/banking-hero.webp" alt="Hand holding a phone with the banking mini app" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 32px;">
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Context</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>This project is under NDA, so I can’t disclose its name, purpose, or show the final interfaces. In this case study, I focus on the process — from the initial brief to a fully developed product handed off to engineering.</p>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Context</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">A consumer Mini App under NDA</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I worked on an MVP for a major banking ecosystem. The product and its core mechanics are under NDA, so this public case focuses on my process, role and design approach.</p>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">My Role</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I co-owned the design process with the Design Lead: I designed user flows and wireframes, developed visual concepts, worked through states and edge cases, and defined the approach to illustration and motion.</p>
-          <p>I also prepared briefs for the Illustrator and Motion Designer, joined stakeholder meetings, supported implementation, and conducted design reviews.</p>
+      <div>
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+          <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">My role</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>Product Designer — user flows, wireframes, interaction logic, prototypes, visual direction, states and edge cases, handoff and design review.</p></div>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Team</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>I worked with a Design Lead, Product Manager, Stakeholder, Illustrator, Motion Designer, Frontend and Backend Engineers, and QA.</p>
+        <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
+        <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+          <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Team</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>I worked with the product stakeholders, the development team, and prepared briefs for illustration and motion.</p></div>
         </div>
-      </section>
-    </div>
+      </div>
+      </div>
+    </section>
     <div style="container-type: inline-size;">
-      <img src="assets/banking-01.webp" alt="Brief, target audience and product requirements overview" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-01.webp" alt="Benchmark and competitor research boards (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 32px;">
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Constantly Evolving Requirements</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>The concept stage took longer than usual because the product and its requirements were evolving in parallel with the design. The brief changed significantly several times, which meant some directions had to be rebuilt from scratch.</p>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Discovery</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Research first, assumptions second</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I started with benchmarking and competitor research to understand familiar patterns, entry barriers and opportunities for differentiation.</p>
+          <p>We also defined several product hypotheses around behaviour, engagement and the core interaction model. Specific findings and hypotheses are available in the full case.</p>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">First, Understand the Problem</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>We started by studying the brief, target audience, and product requirements. I conducted a competitor analysis, then reviewed the findings with the Design Lead and took part in an internal brainstorming session.</p>
-        </div>
-      </section>
-    </div>
+      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">Open full case →</a></p>
+      </div>
+    </section>
     <div style="container-type: inline-size;">
-      <img src="assets/banking-02.webp" alt="Visual references and wireframes explored in parallel" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-02.webp" alt="Visual references and concept boards (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 32px;">
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">UX and Visual Exploration in Parallel</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>After the research phase, I started collecting visual references while simultaneously working on wireframes. This allowed us to test the logic of the user flows and the visual direction independently before connecting them too early.</p>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Validation</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Test before handoff</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I used interactive prototypes to check the main flows before moving into final UI.</p>
+          <p>Testing helped reveal where users needed more context, clearer feedback or a simpler sequence of actions.</p>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">15+ Concepts</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>During the concept stage, I developed more than 15 visual directions in response to the changing requirements.</p>
-          <p>Each concept was more than a collection of stylistic references: I developed a core metaphor, created examples of key visuals using generative tools, and prepared a presentation explaining the idea and how it could evolve across the product.</p>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
     <div style="container-type: inline-size;">
-      <img src="assets/banking-03.webp" alt="Visual concepts developed for the mini app" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-03.webp" alt="Prototype flows and design iterations (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 32px;">
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">We Tested More Than the Visual Direction</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>In parallel, the research team tested prototypes with users. Based on the findings, I refined the flows, adjusted individual steps, and iterated on the overall user journey.</p>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Design &amp; Iteration</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">From concept to product</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I expanded the chosen direction across the MVP, designing key flows, reusable components, states and edge cases.</p>
+          <p>As the brief evolved, I explored 15+ visual concepts, gradually narrowing the direction while keeping the core logic consistent.</p>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">From Concept to System</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>Once one of the concepts was approved, we worked with the engineering team to validate its technical constraints and determine which visual and motion mechanics could realistically be implemented within the Mini App.</p>
-          <p>At the same time, I prepared detailed briefs for the Illustrator and Motion Designer, covering required states, graphic behavior, and asset requirements so the visual language could remain consistent across different product scenarios.</p>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
     <div style="container-type: inline-size;">
-      <img src="assets/banking-04.webp" alt="Mini app screens and UI kit components" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/nda-case-04.webp" alt="MVP screen map with flows and states (blurred under NDA)" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 32px;">
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Turning the Concept Into a Product</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>Once the visual direction was established, I designed the remaining parts of the Mini App, including onboarding, the personal account area, the store, and additional user scenarios.</p>
-          <p>For each flow, I worked through primary and alternative states, errors, and edge cases. In parallel, I built the UI Kit so that new screens could scale without breaking the visual system.</p>
+    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Outcome</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">An MVP ready to evolve</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>The result was an MVP with tested core flows, a defined visual direction and a reusable UI system ready for implementation.</p>
+          <p>The first release was designed as a starting point for further product and visual iterations based on post-launch data.</p>
         </div>
-      </section>
-      <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-        <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Handoff Wasn’t the Final Step</h2>
-        <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-          <p>After all screens were approved, I prepared the designs for development, created desktop adaptations, and documented the required component states and behavior.</p>
-          <p>I stayed involved during implementation: answering developers’ questions, reviewing built screens, and conducting design reviews to make sure the production version preserved both the product logic and the visual principles of the concept.</p>
-          <p>After launch, the team will validate the key product hypotheses with real users and continue iterating on the MVP based on actual usage data.</p>
-        </div>
-      </section>
-    </div>
-    <section aria-label="Full case" style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Looking for the full version?</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p style="text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}" style="font-weight: 400;">Open full case →</a></p>
+      <p style="font-weight: 400; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">Open full case →</a></p>
       </div>
     </section>
   </main>
 
   <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
-    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Explore More Projects</h2>
     <ul>
       <li style="width: max(63.3663%, min(100%, 736px)); container-type: inline-size;">
         <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
@@ -189,13 +167,11 @@ video{display:block}
   </section>
 
   <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
-    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
+    <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">Privacy Policy</a>
     <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
-      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
-      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
       <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="{{ privacyHref }}" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">Privacy</a>
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
     </nav>
   </footer>
 </div>

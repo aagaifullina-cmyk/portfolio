@@ -46,6 +46,10 @@ video{display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 [data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
 [data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
+/* Stage texts: leading trimmed at block edges, as in the Figma layout */
+.cs-text > p:first-child{text-box-trim:trim-start;text-box-edge:cap alphabetic}
+.cs-text > p:last-child{text-box-trim:trim-end;text-box-edge:cap alphabetic}
+.cs-text > p:only-child{text-box:trim-both cap alphabetic}
 [data-reveal="in"]{opacity:1;transform:none;transition:opacity .55s ease-out,transform .55s ease-out}
 @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
@@ -71,101 +75,124 @@ video{display:block}
     <div style="container-type: inline-size;">
       <div role="img" aria-label="WeCoop pricing interface" style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243) url(assets/wecoop-hero.webp) 54.622% 36.445% / 150.871% auto no-repeat;"></div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Context</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>WeCoop is a B2B platform where companies work with designers: clients post projects, receive proposals, select a designer, and negotiate project terms within the platform.</p>
-        <p>For the MVP, we needed to create a pricing system that could serve as the foundation for estimating project costs.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Context</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">A B2B platform for design services</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>WeCoop is a platform where companies find designers and manage design tasks — from brief to proposal and approval.</p>
+        </div>
+        <div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">My role</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>Product Designer — user flows, interface logic, wireframes, final UI, reusable components, usability testing, handoff and design review.</p></div>
+          </div>
+          <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Team</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>I worked with product stakeholders and the development team, collaborating on product logic, technical constraints and implementation.</p></div>
+          </div>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/1.mp4" aria-label="Service selection: choosing the types of work a designer offers" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Challenge</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>Design a pricing system from scratch that clearly explains how the final project cost is calculated and generates a structured cost breakdown for accounting purposes.</p>
-        <p>This is especially important for tenders, where a designer’s proposal needs to provide a transparent breakdown by type and volume of work.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Discovery</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Turn an informal process into a product</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>A lot of project pricing and deadline negotiation normally happens in chats and calls.</p>
+          <p>The challenge was to move this process into the platform without making the MVP too complex.</p>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/2.mp4" aria-label="Designer price list with work types, complexity and time estimates" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Constraints</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>WeCoop minimizes direct communication between clients and designers, so key agreements need to happen through structured interactions within the product.</p>
-        <p>The price list also needs to be reusable when creating proposals. At the same time, the MVP has to stay relatively simple while collecting enough data to inform future product decisions.</p>
-        <p>As a result, the first version includes steps whose immediate value may not always be obvious to designers—for example, estimating different types of work by complexity and time. This data will help us understand which parameters actually affect pricing.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Hypotheses</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">What we assumed</h3>
+        <div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Reusable pricing could save time</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>Designers could set up services once and reuse them in future proposals.</p></div>
+          </div>
+          <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Structured proposals could add transparency</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>A clear price breakdown could make proposals easier for clients to understand and approve.</p></div>
+          </div>
+          <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Pricing needed room for uncertainty</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>Incomplete briefs repeatedly came up as a problem during user interviews. I helped prepare the questions, and we spoke with 5 respondents.</p><p>This led to the idea of an uncertainty adjustment — a way for designers to reflect missing information directly in the price instead of resolving everything through extra communication.</p></div>
+          </div>
+          <div role="presentation" style="height: 1px; margin: 8px 0; background: rgb(213,213,213);"></div>
+          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px) 0;">
+            <h4 style="margin: 0; font-weight: 500; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Deadlines could be negotiated without chat</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>A structured counteroffer flow could keep agreements inside the product.</p></div>
+          </div>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/3.mp4" aria-label="Creating a proposal: project timeline, scope of work and price" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">My Role</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>I analyzed business requirements, designed user flows and product logic, presented and defended design decisions, supported implementation, and conducted design reviews.</p>
-        <p>I worked in a cross-functional team with an Art Director, Stakeholder, Product Manager, Frontend and Backend Engineers, and QA.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Design</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Turn negotiation into a system</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I connected reusable services, pricing parameters, proposals and deadline negotiation into one flow.</p>
+          <p>Designers could reuse their setup, adjust pricing when the brief was incomplete, and negotiate deadlines through structured counteroffers instead of switching to a messenger.</p>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/4.mp4" aria-label="Deadline selection calendars for designer and client" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Price Adjustment</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>User interviews showed that the cost of a design project cannot always be calculated simply by adding up fixed service prices. An unclear brief, complex approval processes, and other risks can significantly affect the final estimate.</p>
-        <p>To account for this, I introduced an uncertainty coefficient: the system calculates a base price from the designer’s price list, while the designer can adjust it to reflect the context of a specific project.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Validation</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">Test the logic, not just the screens</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>I conducted usability testing myself to see whether users could understand and complete the pricing flow.</p>
+          <p>Early tests showed that parts of the setup process were unclear, so I simplified the structure and improved how information was introduced.</p>
+          <p>In the latest testing rounds, respondents had noticeably fewer questions while going through the flow.</p>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/5.mp4" aria-label="Sending a proposal with the adjusted price to the client" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">Deadline Negotiation</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>Discussing deadlines in a chat would go against WeCoop’s approach to minimizing direct communication, so I designed a structured negotiation flow using a calendar.</p>
-        <p>The client proposes a deadline, the designer can suggest a different date, and both sides continue adjusting it until they reach an agreement.</p>
-        <p>This replaces an open-ended conversation with a focused interaction built around a single parameter—the project deadline.</p>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">Outcome</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
+        <h3 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0078125), 32px); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">A foundation for the MVP</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+          <p>The result connected service setup, pricing, proposals, deadline negotiation and approval into one consistent flow.</p>
+          <p>After launch, I’d track the product funnel: pricing setup completion and drop-off, how often saved services are reused in new proposals, and proposal acceptance vs. counteroffers. I’d also look at the number of negotiation rounds before an agreement to see where the flow creates friction.</p>
+        </div>
       </div>
     </section>
-
     <div style="container-type: inline-size;">
       <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
         <video data-src="media/6.mp4" aria-label="A4 document preview" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
       </div>
     </div>
-
-    <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.333; text-box: trim-both cap alphabetic;">What’s Next</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: clamp(14px, calc(14px + (100vw - 375px) * 0.0065104), 24px); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
-        <p>The price list has been launched as part of the MVP, so the next iterations will be driven by real usage data.</p>
-        <p>I’ll compare prices saved in designers’ price lists with prices in actual proposals and track how often designers adjust the price calculated by the system. This will help determine how closely the current structure reflects real-world pricing models and which parameters actually influence estimates.</p>
-        <p>Based on these findings, I’ll be able to remove redundant parameters, simplify the flow, and improve pricing accuracy while keeping the cost breakdown transparent for clients.</p>
-      </div>
-    </section>
   </main>
 
   <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
@@ -184,13 +211,11 @@ video{display:block}
   </section>
 
   <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 24px); line-height: 1.4; color: rgb(0,0,0);">
-    <span style="text-box: trim-both cap alphabetic;">Contact me</span>
+    <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">Privacy Policy</a>
     <nav aria-label="Contacts" style="display: flex; align-items: center; gap: 8px;">
-      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
-      <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">Telegram</a>
       <span aria-hidden="true" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">·</span>
-      <a href="{{ privacyHref }}" style="color: #9D9D9D; text-box: trim-both cap alphabetic;">Privacy</a>
+      <a href="mailto:aa.gaifullina@gmail.com" style="text-box: trim-both cap alphabetic;">Mail</a>
     </nav>
   </footer>
 </div>
