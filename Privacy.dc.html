@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" href="favicon.png?v=2">
 <link rel="stylesheet" href="lang.css?v=3">
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=3"></script>
+<script src="i18n/site-texts.js?v=4"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -19,6 +19,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
 <style>
+/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
+   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
+@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -31,7 +34,7 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 .pm-close:active{background-color:rgba(39,32,40,0.07)}
 .pm-close:focus-visible{outline-offset:0}
 .pv-sec{display:flex;flex-direction:column;gap:8px}
-.pv-h2{font-weight:400;font-size:15px;line-height:1.4;color:rgb(0,0,0)}
+.pv-h2{font-weight:400;font-size: calc(15px * var(--fs, 1));line-height:1.4;color:rgb(0,0,0)}
 .pv-list{list-style:none;display:flex;flex-direction:column;gap:2px}
 .pv-list li{position:relative;padding-left:1.1em}
 .pv-list li::before{content:"–";position:absolute;left:0;color:rgb(157,157,157)}
@@ -45,8 +48,8 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
   </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <article style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 20px;">
-      <h1 style="font-weight: 400; font-size: clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.title }}</h1>
-      <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: 14px; line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
+      <h1 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px) * var(--fs, 1)); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.title }}</h1>
+      <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: calc(14px * var(--fs, 1)); line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
         <section class="pv-sec">
           <p>{{ t.intro }}</p>
         </section>
