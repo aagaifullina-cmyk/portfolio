@@ -178,4 +178,26 @@ window.CASE_TEXTS = {
       page_title: "WeCoop — система ценообразования и создания предложений для дизайнеров · Asya Gaifullina",
     },
   },
+  't-bank-promo': {
+    en: {
+      page_title: "Bank Event Promo Landing Page · Asya Gaifullina",
+      title: "T-Bank",
+      subtitle: "Bank Event Promo Landing Page",
+      hero_label: "Screen recording of the landing page: first screen of the event site",
+      context_label: "Context",
+      context_text1: "A landing page for T-Bank events. On this project I was the web designer: I was responsible for the visual direction, worked closely with colleagues, prepared layouts for handoff to development and ran design reviews of the implementation.",
+      explore_heading: "Explore More Projects",
+      explore_card_title: "Pricing System for a Designer Marketplace",
+    },
+    ru: {
+      page_title: "Промо-лендинг для мероприятия банка · Asya Gaifullina",
+      title: "Т-Банк",
+      subtitle: "Промо-лендинг для мероприятия банка",
+      hero_label: "Запись экрана лендинга: первый экран сайта мероприятия",
+      context_label: "Контекст",
+      context_text1: "Лендинг для мероприятий Т-Банка. На проекте я выступала веб-дизайнером: отвечала за визуальное направление, работала в связке с коллегами, готовила макеты к передаче в разработку и проводила дизайн-ревью реализации.",
+      explore_heading: "Другие проекты",
+      explore_card_title: "Система ценообразования для маркетплейса дизайнеров",
+    },
+  },
 };

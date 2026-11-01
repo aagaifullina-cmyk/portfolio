@@ -1,6 +1,5 @@
 /* Site texts in English and Russian: shared parts (footer, switch, labels), the home page, Privacy and the NDA gate.
  * Case texts are in i18n/case-texts.js. Keys are used by the page templates as {{ t.key }}; a key missing in RU falls back to EN.
- * home.intro_more starts on a new line; in RU it is empty, so the RU intro wraps naturally.
  * Non-breaking spaces (\u00a0) keep short words and numbers with the next word.
  * Interface texts inside images, mockups and Figma prototypes are not translated. */
 window.SITE_TEXTS = {
@@ -30,8 +29,7 @@ window.SITE_TEXTS = {
     en: {
       role_product: "Product",
       role_uxui: "UX/UI designer",
-      intro: "I design B2B and B2C digital products across SaaS, marketplaces, fintech, and media —",
-      intro_more: "from product logic and MVP concepts to polished interfaces.",
+      intro: "I design B2B and B2C digital products across SaaS, marketplaces, fintech, and media — from product logic and MVP concepts to polished interfaces.",
       clients: "My clients include:",
       alfa_label: "Alfa-Bank",
       tbank_label: "T-Bank",
@@ -41,7 +39,7 @@ window.SITE_TEXTS = {
       banking_title: "Banking Mini App — From Concept to MVP",
       tv_image: "TV subscription platform — coming soon",
       tv_title: "“Add a Member” Flow for a TV Subscription Platform",
-      event_image: "Bank event promo landing page — coming soon",
+      event_image: "Bank event promo landing page",
       event_title: "Bank Event Promo Landing Page",
       coming_soon: "Coming Soon",
       page_title: "Asya Gaifullina — Product · UX/UI designer",
@@ -50,7 +48,6 @@ window.SITE_TEXTS = {
       role_product: "Продуктовый",
       role_uxui: "UX/UI-дизайнер",
       intro: "Я проектирую цифровые B2B- и B2C-продукты в сферах SaaS, маркетплейсов, финтеха и медиа — от продуктовой логики и MVP-концепций до проработанных интерфейсов.",
-      intro_more: "",
       clients: "Среди моих клиентов:",
       alfa_label: "Альфа-Банк",
       tbank_label: "Т-Банк",
@@ -60,7 +57,7 @@ window.SITE_TEXTS = {
       banking_title: "Mini-App — от концепции до MVP",
       tv_image: "Платформа ТВ-подписки — скоро",
       tv_title: "Сценарий «Добавить участника» для платформы ТВ-подписки",
-      event_image: "Промо-лендинг мероприятия банка — скоро",
+      event_image: "Промо-лендинг мероприятия банка",
       event_title: "Промо-лендинг для мероприятия банка",
       coming_soon: "Скоро",
       page_title: "Asya Gaifullina — продуктовый · UX/UI-дизайнер",
