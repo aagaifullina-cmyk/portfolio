@@ -19,3 +19,13 @@ tools/nda-allowlist.txt
 PredictionMiniApp.full.dc.html
 assets/prediction-*.webp
 media/prediction-*.mp4
+
+# Local working files, not part of the site
+/Component *.png
+/Free iPhone 17 Pro.png
+/update nda case/
+/видео ап*/
+/Стековка/
+/uploads/
+/dynamic-island/
+tools/access.py

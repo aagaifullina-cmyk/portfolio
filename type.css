@@ -1,0 +1,93 @@
+/* Site type scale and case-page spacing, shared by every page. All font sizes are whole pixels.
+   Change a value here and it changes on every page. Desktop starts at 1024px (same breakpoint as the pages). */
+:root{
+  /* ---- type: mobile and tablet ---- */
+  --t-title:   clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px); /* case title (WeCoop, NDA, …): grows with the screen */
+  --t-heading: 20px;   /* section headings ("A B2B platform for design services") */
+  --t-label:   16px;   /* grey section labels, "More projects" card titles, footer */
+  --t-body:    16px;   /* body text, tags */
+  --t-small:   16px;   /* NDA gate texts and field (16px keeps iOS from zooming into the field) */
+  --t-note:    16px;   /* form error */
+  --t-page:    20px;   /* Privacy title */
+  --t-switch:  13px;   /* EN | RU switch */
+
+  /* ---- page edges and avatar: the same on every page ---- */
+  --m:        min(calc(100vw / 375), 1.25px);  /* mobile scale unit (the home page uses it too) */
+  --s-page:   calc(16 * var(--m));             /* page padding */
+  --s-avatar: calc(48 * var(--m));             /* avatar size (the EN | RU switch is centred on it) */
+
+  /* ---- case pages spacing: mobile and tablet (grows a little with the screen) ---- */
+  --s-header:   clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px); /* avatar row -> case title */
+  --s-title:    clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); /* case title -> subtitle */
+  --s-hero:     clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);  /* subtitle -> cover */
+  --s-block:    clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px);   /* between covers, images and sections */
+  --s-section:  32px;  /* section heading -> its text (larger than the space between paragraphs) */
+  --s-sub:      10px;  /* small heading ("My role", "Reusable pricing could save time") -> its text: kept tight, so each pair reads as one block */
+  --s-para:     12px;  /* between paragraphs (plus the line spacing, it reads as ~23px) */
+  --s-row:      clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px); /* rows such as "My role" / "Team" */
+  --s-more:     clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);  /* last section -> "Explore More Projects" */
+  --s-more-gap: 24px;                                                         /* avatar (home link on the inner pages) */
+.site-avatar{width:var(--s-avatar);height:var(--s-avatar);border-radius:calc(var(--s-avatar) * 0.1478)}
+@media (min-width: 1024px){.site-avatar{border-radius:calc(var(--s-avatar) * 0.1866)}}
+
+/* "Explore More Projects" -> cards */
+  --s-card:     clamp(14px, calc(14px + (100vw - 375px) * 0.0063151), 24px); /* card image -> card title */
+  --s-card-tag: 8px;                                                          /* card title -> NDA */
+  --s-footer:   clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);  /* -> footer */
+}
+@media (min-width: 1024px){
+  :root{
+    --t-title:   calc(clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px) * 40 / 54); /* as before, up to 40px */
+    --t-heading: 20px;
+    --t-label:   16px;
+    --t-body:    16px;
+    --t-small:   16px;
+    --t-note:    16px;
+    --t-page:    20px;
+    --t-switch:  13px;
+    /* home page */
+    --t-home-name:    20px;  /* Asya Gaifullina / Product · UX/UI designer */
+    --t-home-clients: 16px;  /* My clients include: */
+    --t-home-card:    16px;  /* case titles under the cards, NDA */
+    --t-home-section: 20px;  /* "Cases", "Playground" */
+    --t-home-badge:   16px;  /* Coming Soon */
+
+    /* case pages spacing: fixed */
+    --s-page:     32px;
+    --s-avatar:   56px;
+    --s-header:   40px;
+    --s-title:    16px;
+    --s-hero:     40px;
+    --s-block:    56px;
+    --s-section:  40px;
+    --s-row:      16px;
+    --s-more:     64px;
+    --s-more-gap: 24px;
+    --s-card:     16px;
+    --s-card-tag: 8px;
+    --s-footer:   56px;
+    /* case cover height, as a share of its width (cropped to fit) */
+    --cover-h: calc(100cqw * 0.48);
+  }
+}
+/* the fluid case title is rounded to whole pixels (browsers without round() keep the unrounded size) */
+@supports (width: round(nearest, 1.5px, 1px)){
+  :root{ --t-title: round(nearest, clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px), 1px); }
+  @media (min-width: 1024px){
+    :root{ --t-title: round(nearest, calc(clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px) * 40 / 54), 1px); }
+  }
+}
+
+/* avatar (home link on the inner pages) */
+.site-avatar{width:var(--s-avatar);height:var(--s-avatar);border-radius:calc(var(--s-avatar) * 0.1478)}
+@media (min-width: 1024px){.site-avatar{border-radius:calc(var(--s-avatar) * 0.1866)}}
+
+/* "Explore More Projects": the other cases, two per row on wider screens */
+.more-grid{display:grid;grid-template-columns:minmax(0, 1fr);gap:24px}
+@media (min-width: 768px){.more-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}}
+.more-card{display:flex;flex-direction:column;gap:var(--s-card);opacity:1}
+.more-media{position:relative;aspect-ratio:3 / 2;overflow:hidden;border-radius:clamp(17px, calc(17px + (100vw - 375px) * 0.0019), 20px);background:rgb(243,242,243)}
+.more-media > img,.more-media > video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.more-text{display:flex;flex-direction:column;gap:var(--s-card-tag)}
+.more-title{font-weight:300;font-size:var(--t-label);line-height:1.25;text-box:trim-both cap alphabetic}
+.more-tag{font-weight:300;font-size:var(--t-label);line-height:1.25;color:rgb(178,178,178);text-box:trim-both cap alphabetic}

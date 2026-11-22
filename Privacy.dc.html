@@ -4,9 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="favicon.png?v=2">
-<link rel="stylesheet" href="lang.css?v=3">
+<link rel="stylesheet" href="type.css?v=6">
+<link rel="stylesheet" href="lang.css?v=4">
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=7"></script>
+<script src="i18n/site-texts.js?v=12"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -19,9 +20,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
 <style>
-/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
-   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
-@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -34,22 +32,22 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 .pm-close:active{background-color:rgba(39,32,40,0.07)}
 .pm-close:focus-visible{outline-offset:0}
 .pv-sec{display:flex;flex-direction:column;gap:8px}
-.pv-h2{font-weight:400;font-size: calc(15px * var(--fs, 1));line-height:1.4;color:rgb(0,0,0)}
+.pv-h2{font-weight:400;font-size: var(--t-label);line-height:1.4;color:rgb(0,0,0)}
 .pv-list{list-style:none;display:flex;flex-direction:column;gap:2px}
 .pv-list li{position:relative;padding-left:1.1em}
 .pv-list li::before{content:"–";position:absolute;left:0;color:rgb(157,157,157)}
 </style>
 </helmet>
 <!-- No analytics on this page on purpose. -->
-<div data-screen-label="Privacy notice" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); display: flex; align-items: center; gap: 8px; margin: -12px -12px 0 0;">
+<div data-screen-label="Privacy notice" style="position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: var(--s-page); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <div style="position: absolute; top: var(--s-page); right: var(--s-page); height: var(--s-avatar); display: flex; align-items: center; gap: 8px; margin: 0 -12px 0 0;">
     <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
     <a class="pm-close" style="margin: 0;" href="{{ homeHref }}" onClick="{{ onClose }}" aria-label="{{ t.close_label }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
   </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <article style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 20px;">
-      <h1 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0026042), 22px) * var(--fs, 1)); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.title }}</h1>
-      <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: calc(14px * var(--fs, 1)); line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
+      <h1 style="font-weight: 400; font-size: var(--t-page); line-height: 1.333; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.title }}</h1>
+      <div style="display: flex; flex-direction: column; gap: 18px; font-weight: 400; font-size: var(--t-body); line-height: 1.55; letter-spacing: 0.01em; color: rgba(39,32,40,0.75); text-wrap: pretty;">
         <section class="pv-sec">
           <p>{{ t.intro }}</p>
         </section>

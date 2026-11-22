@@ -23,10 +23,13 @@
         capture_performance: false,
     })
 </script>
-<link rel="stylesheet" href="lang.css?v=3">
+<link rel="stylesheet" href="type.css?v=6">
+<link rel="stylesheet" href="lang.css?v=4">
+<link rel="stylesheet" href="cursor.css?v=1">
+<script src="cursor.js?v=1" defer></script>
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=7"></script>
-<script src="i18n/case-texts.js?v=5"></script>
+<script src="i18n/site-texts.js?v=12"></script>
+<script src="i18n/case-texts.js?v=6"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -40,9 +43,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
 <link rel="preload" as="image" href="assets/banking-hero.webp" fetchpriority="high">
 <style>
-/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
-   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
-@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -52,10 +52,7 @@ a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 video{display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-/* Avatar: same size as on the home page (48 × --m on mobile, 72 × --u on desktop) */
-:root{--u:min(calc(100vw / 1882), calc(100vh / 1100), 1.2px);--m:min(calc(100vw / 375), 1.25px)}
-.site-avatar{width:calc(48 * var(--m));height:calc(48 * var(--m));border-radius:calc(7.092 * var(--m))}
-@media (min-width: 1024px){.site-avatar{width:calc(72 * var(--u));height:calc(72 * var(--u));border-radius:calc(13.437 * var(--u))}}
+/* Avatar size and page edges: type.css (the same as on the home page) */
 [data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
 [data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
 /* Stage texts: leading trimmed at block edges, as in the Figma layout */
@@ -66,17 +63,17 @@ video{display:block}
 @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
 </helmet>
-<div data-screen-label="Banking Mini App case" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <header style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px);">
+<div data-screen-label="Banking Mini App case" style="min-height: 100vh; display: flex; flex-direction: column; padding: var(--s-page); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <header style="display: flex; flex-direction: column; gap: var(--s-header);">
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
       <a href="{{ homeHref }}" aria-label="{{ t.home_label }}" class="site-avatar" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
       <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
     </div>
-    <div style="display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
-      <h1 style="font-weight: 400; font-size: calc(clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px) * var(--fs-title, 1)); line-height: 1.2; color: rgb(39,32,40); text-box: trim-both cap alphabetic;">NDA</h1>
+    <div style="display: flex; flex-direction: column; gap: var(--s-title);">
+      <h1 style="font-weight: 400; font-size: var(--t-title); line-height: 1.2; color: rgb(39,32,40); text-box: trim-both cap alphabetic;">NDA</h1>
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
-        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.subtitle }}</p>
-        <ul aria-label="{{ t.tags_label }}" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
+        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: var(--t-body); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.subtitle }}</p>
+        <ul aria-label="{{ t.tags_label }}" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: var(--t-body); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
           <li style="text-box: trim-both cap alphabetic;">MVP</li>
           <li style="text-box: trim-both cap alphabetic;">{{ t.tag_mini_app }}</li>
           <li style="text-box: trim-both cap alphabetic;">B2C</li>
@@ -86,26 +83,25 @@ video{display:block}
     </div>
   </header>
 
-  <main style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+  <main style="display: flex; flex-direction: column; gap: var(--s-block); margin-top: var(--s-hero);">
     <div style="container-type: inline-size;">
-      <img src="assets/banking-hero.webp" alt="{{ t.hero_alt }}" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
+      <img src="assets/banking-hero.webp" alt="{{ t.hero_alt }}" fetchpriority="high" decoding="async" width="2400" height="1800" style="display: block; width: 100%; height: var(--cover-h, calc(100cqw * 0.54373 + 53.5px)); object-fit: cover; object-position: 50% 28.23%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.context_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.context_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.context_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.context_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.context_text1 }}</p>
         </div>
       <div>
-        <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-          <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row1_title }}</h4>
-          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row1_text }}</p></div>
+        <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+          <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row1_title }}</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row1_text }}</p></div>
         </div>
-        <div role="presentation" style="height: 1px; margin: 4px 0; background: rgb(213,213,213);"></div>
-        <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-          <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row2_title }}</h4>
-          <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row2_text }}</p></div>
+        <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+          <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row2_title }}</h4>
+          <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row2_text }}</p></div>
         </div>
       </div>
       </div>
@@ -114,24 +110,24 @@ video{display:block}
       <img src="assets/nda-case-01.webp" alt="{{ t.image1_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.discovery_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.discovery_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.discovery_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.discovery_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.discovery_text1 }}</p>
           <p>{{ t.discovery_text2 }}</p>
         </div>
-      <p style="font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
+      <p style="font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
       </div>
     </section>
     <div style="container-type: inline-size;">
       <img src="assets/nda-case-02.webp" alt="{{ t.image2_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.prototype_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.prototype_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.prototype_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.prototype_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.prototype_text1 }}</p>
         </div>
       </div>
@@ -140,10 +136,10 @@ video{display:block}
       <img src="assets/nda-case-03.webp" alt="{{ t.image3_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.design_iteration_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.design_iteration_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.design_iteration_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.design_iteration_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.design_iteration_text1 }}</p>
           <p>{{ t.design_iteration_text2 }}</p>
         </div>
@@ -153,33 +149,37 @@ video{display:block}
       <img src="assets/nda-case-04.webp" alt="{{ t.image4_alt }}" loading="lazy" decoding="async" width="2400" height="1376" style="display: block; width: 100%; height: calc(100cqw * 0.54373 + 53.5px); object-fit: cover; object-position: 50% 50%; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.outcome_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.outcome_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.outcome_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.outcome_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.outcome_text1 }}</p>
           <p>{{ t.outcome_text2 }}</p>
         </div>
-      <p style="font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
+      <p style="font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty; text-box: trim-both cap alphabetic;"><a href="{{ fullCaseHref }}">{{ t.full_case_link }}</a></p>
       </div>
     </section>
   </main>
 
-  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
-    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.explore_heading }}</h2>
-    <ul>
-      <li style="width: max(63.3663%, min(100%, 736px)); container-type: inline-size;">
-        <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
-          <div style="position: relative; width: 100%; height: calc(100cqw * 0.52658 + 59.4px); overflow: hidden; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
-            <video src="media/1.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
-          </div>
-          <h3 style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.explore_card_title }}</h3>
+  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: var(--s-more-gap); margin-top: var(--s-more);">
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.explore_heading }}</h2>
+    <ul class="more-grid">
+      <li>
+        <a href="{{ wecoopHref }}" class="more-card">
+          <div class="more-media" data-cursor="{{ t.cursor_open }}"><video src="media/1.mp4#t=0.1" muted="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}"></video></div>
+          <h3 class="more-title">{{ t.more_wecoop_title }}</h3>
+        </a>
+      </li>
+      <li>
+        <a href="{{ promoHref }}" class="more-card">
+          <div class="more-media" data-cursor="{{ t.cursor_open }}"><img src="assets/case-promo-iphone.webp" alt="{{ t.more_promo_alt }}" loading="lazy" decoding="async" width="2000" height="1500"></div>
+          <h3 class="more-title">{{ t.more_promo_title }}</h3>
         </a>
       </li>
     </ul>
   </section>
 
-  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.25; color: rgb(0,0,0);">
+  <footer style="margin-top: var(--s-footer); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: var(--t-label); line-height: 1.25; color: rgb(0,0,0);">
     <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">{{ t.privacy_link }}</a>
     <nav aria-label="{{ t.contacts_label }}" style="display: flex; align-items: center; gap: 8px;">
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">{{ t.telegram }}</a>
@@ -295,7 +295,7 @@ class Component extends DCLogic {
     window.removeEventListener('site-langchange', this.onLang); if (this.stopDepth) this.stopDepth(); if (this.rio) this.rio.disconnect(); if (this.unscale) this.unscale(); }
   renderVals() {
     const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
-    return { t: pageText(this.state.lang), homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop', fullCaseHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
+    return { t: pageText(this.state.lang), homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', wecoopHref: isFile ? 'WeCoop.dc.html' : '/wecoop', fullCaseHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app', promoHref: isFile ? 'TBankPromo.dc.html' : '/t-bank-promo' };
   }
 }
 </script>
