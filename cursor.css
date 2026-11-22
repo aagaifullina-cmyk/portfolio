@@ -1,0 +1,17 @@
+/* Cursor label over case covers (see cursor.js): a black pill that replaces the cursor. */
+@media (hover: hover) and (pointer: fine) {
+  [data-cursor], [data-cursor] * { cursor: none; }
+}
+.cursor-pill {
+  position: fixed; left: 0; top: 0; z-index: 1000;
+  pointer-events: none; white-space: nowrap;
+  height: 28px; padding: 0 12px; display: flex; align-items: center;
+  border-radius: 999px; background: #000; color: #fafafa;
+  font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400; font-size: 14px; line-height: 20px; letter-spacing: -0.02em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+  opacity: 0; scale: 0.9;
+  transition: opacity .15s ease-out, scale .15s ease-out;
+}
+.cursor-pill.is-shown { opacity: 1; scale: 1; }
+@media (prefers-reduced-motion: reduce) { .cursor-pill { transition: none; } }

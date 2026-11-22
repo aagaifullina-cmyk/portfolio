@@ -23,10 +23,13 @@
         capture_performance: false,
     })
 </script>
-<link rel="stylesheet" href="lang.css?v=3">
+<link rel="stylesheet" href="type.css?v=6">
+<link rel="stylesheet" href="lang.css?v=4">
+<link rel="stylesheet" href="cursor.css?v=1">
+<script src="cursor.js?v=1" defer></script>
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=7"></script>
-<script src="i18n/case-texts.js?v=5"></script>
+<script src="i18n/site-texts.js?v=12"></script>
+<script src="i18n/case-texts.js?v=6"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -37,11 +40,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
-<link rel="preload" as="image" href="assets/wecoop-hero.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/wecoop-hero.webp?v=2" fetchpriority="high">
 <style>
-/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
-   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
-@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -51,10 +51,7 @@ a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 video{display:block}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-/* Avatar: same size as on the home page (48 × --m on mobile, 72 × --u on desktop) */
-:root{--u:min(calc(100vw / 1882), calc(100vh / 1100), 1.2px);--m:min(calc(100vw / 375), 1.25px)}
-.site-avatar{width:calc(48 * var(--m));height:calc(48 * var(--m));border-radius:calc(7.092 * var(--m))}
-@media (min-width: 1024px){.site-avatar{width:calc(72 * var(--u));height:calc(72 * var(--u));border-radius:calc(13.437 * var(--u))}}
+/* Avatar size and page edges: type.css (the same as on the home page) */
 [data-reveal="off"]{opacity:0;transform:translate3d(0,20px,0)}
 [data-reveal="off"]:has(> img, > div > img, > div > video){transform:translate3d(0,24px,0)}
 /* Stage texts: leading trimmed at block edges, as in the Figma layout */
@@ -65,17 +62,17 @@ video{display:block}
 @media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
 </helmet>
-<div data-screen-label="WeCoop case" style="min-height: 100vh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
-  <header style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.0208333), 64px);">
+<div data-screen-label="WeCoop case" style="min-height: 100vh; display: flex; flex-direction: column; padding: var(--s-page); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif;">
+  <header style="display: flex; flex-direction: column; gap: var(--s-header);">
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
       <a href="{{ homeHref }}" aria-label="{{ t.home_label }}" class="site-avatar" style-hover="opacity: 0.85;" style="display: block; opacity: 1; transition: opacity .25s ease; background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></a>
       <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
     </div>
-    <div style="display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
-      <h1 style="font-weight: 400; font-size: calc(clamp(24px, calc(24px + (100vw - 375px) * 0.0195313), 54px) * var(--fs-title, 1)); line-height: 1.2; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">WeCoop</h1>
+    <div style="display: flex; flex-direction: column; gap: var(--s-title);">
+      <h1 style="font-weight: 400; font-size: var(--t-title); line-height: 1.2; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">WeCoop</h1>
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;">
-        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.subtitle }}</p>
-        <ul aria-label="{{ t.tags_label }}" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
+        <p style="flex: 1 1 auto; max-width: 900px; font-weight: 300; font-size: var(--t-body); line-height: 1.3; color: rgb(0,0,0); text-box: trim-both cap alphabetic;">{{ t.subtitle }}</p>
+        <ul aria-label="{{ t.tags_label }}" style="display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 8px; font-weight: 300; font-size: var(--t-body); line-height: 1.1667; color: rgb(157,157,157); white-space: nowrap;">
           <li style="text-box: trim-both cap alphabetic;">MVP</li>
           <li style="text-box: trim-both cap alphabetic;">SaaS</li>
           <li style="text-box: trim-both cap alphabetic;">{{ t.tag_web }}</li>
@@ -85,102 +82,98 @@ video{display:block}
     </div>
   </header>
 
-  <main style="display: flex; flex-direction: column; gap: clamp(32px, calc(32px + (100vw - 375px) * 0.03125), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
+  <main style="display: flex; flex-direction: column; gap: var(--s-block); margin-top: var(--s-hero);">
     <div style="container-type: inline-size;">
-      <div role="img" aria-label="{{ t.hero_label }}" style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243) url(assets/wecoop-hero.webp) 54.622% 36.445% / 150.871% auto no-repeat;"></div>
+      <div role="img" aria-label="{{ t.hero_label }}" style="height: var(--cover-h, calc(100cqw * 0.53717 + 55.75px)); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243) url(assets/wecoop-hero.webp?v=2) 50% 40% / cover no-repeat;"></div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.context_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.context_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.context_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.context_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.context_text1 }}</p>
         </div>
         <div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row1_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row1_text }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row1_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row1_text }}</p></div>
           </div>
-          <div role="presentation" style="height: 1px; margin: 4px 0; background: rgb(213,213,213);"></div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row2_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row2_text }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.context_row2_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.context_row2_text }}</p></div>
           </div>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/1.mp4" aria-label="{{ t.video1_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-1.mp4" aria-label="{{ t.video1_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.discovery_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.discovery_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.discovery_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.discovery_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.discovery_text1 }}</p>
           <p>{{ t.discovery_text2 }}</p>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/2.mp4" aria-label="{{ t.video2_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-2.mp4" aria-label="{{ t.video2_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.hypotheses_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.hypotheses_heading }}</h3>
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.hypotheses_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.hypotheses_heading }}</h3>
         <div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: 0 0 clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px);">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row1_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row1_text }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: 0 0 var(--s-row);">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row1_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row1_text }}</p></div>
           </div>
-          <div role="presentation" style="height: 1px; margin: 4px 0; background: rgb(213,213,213);"></div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row2_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row2_text }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row2_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row2_text }}</p></div>
           </div>
-          <div role="presentation" style="height: 1px; margin: 4px 0; background: rgb(213,213,213);"></div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row3_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row3_text }}</p><p>{{ t.hypotheses_row3_text_2 }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row3_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row3_text }}</p><p>{{ t.hypotheses_row3_text_2 }}</p></div>
           </div>
-          <div role="presentation" style="height: 1px; margin: 4px 0; background: rgb(213,213,213);"></div>
-          <div style="display: flex; flex-direction: column; gap: 16px; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) 0;">
-            <h4 style="margin: 0; font-weight: 400; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row4_title }}</h4>
-            <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row4_text }}</p></div>
+          <div style="display: flex; flex-direction: column; gap: var(--s-sub); padding: var(--s-row) 0;">
+            <h4 style="margin: 0; font-weight: 400; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">{{ t.hypotheses_row4_title }}</h4>
+            <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;"><p>{{ t.hypotheses_row4_text }}</p></div>
           </div>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/3.mp4" aria-label="{{ t.video3_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-3.mp4" aria-label="{{ t.video3_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.design_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.design_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.design_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.design_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.design_text1 }}</p>
           <p>{{ t.design_text2 }}</p>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/4.mp4" aria-label="{{ t.video4_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-4.mp4" aria-label="{{ t.video4_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.validation_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.validation_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.validation_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.validation_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.validation_text1 }}</p>
           <p>{{ t.validation_text2 }}</p>
           <p>{{ t.validation_text3 }}</p>
@@ -188,43 +181,49 @@ video{display:block}
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/5.mp4" aria-label="{{ t.video5_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-5.mp4" aria-label="{{ t.video5_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
     <section style="display: flex; flex-wrap: wrap; gap: 24px 25px;">
-      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.outcome_label }}</h2>
-      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0104167), 32px);">
-        <h3 style="font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.outcome_heading }}</h3>
-        <div class="cs-text" style="display: flex; flex-direction: column; gap: 16px; font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0052083), 22px) * var(--fs-body, 1)); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
+      <h2 style="flex: 885 1 0; min-width: min(100%, 420px); font-weight: 400; font-size: var(--t-label); line-height: 1.333; text-box: trim-both cap alphabetic; color: rgb(157,157,157);">{{ t.outcome_label }}</h2>
+      <div style="flex: 926 1 0; min-width: min(100%, 440px); display: flex; flex-direction: column; gap: var(--s-section);">
+        <h3 style="font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.outcome_heading }}</h3>
+        <div class="cs-text" style="display: flex; flex-direction: column; gap: var(--s-para); font-weight: 300; font-size: var(--t-body); line-height: 1.4; letter-spacing: 0.01em; text-wrap: pretty;">
           <p>{{ t.outcome_text1 }}</p>
           <p>{{ t.outcome_text2 }}</p>
         </div>
       </div>
     </section>
     <div style="container-type: inline-size;">
-      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(243,242,243);">
-        <video data-src="media/6.mp4" aria-label="{{ t.video6_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: contain;"></video>
+      <div style="height: calc(100cqw * 0.53717 + 55.75px); overflow: hidden; border-radius: clamp(17.243px, calc(17.243px + (100vw - 375px) * 0.0017949), 20px); background: rgb(240,240,240);">
+        <video data-src="media/wecoop-6.mp4" aria-label="{{ t.video6_label }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="none" disablePictureInPicture="{{ true }}" style="width: 100%; height: 100%; object-fit: cover;"></video>
       </div>
     </div>
   </main>
 
-  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: clamp(24px, calc(24px + (100vw - 375px) * 0.0364583), 80px); margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px);">
-    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: calc(clamp(20px, calc(20px + (100vw - 375px) * 0.0065104), 30px) * var(--fs-heading, 1)); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.explore_heading }}</h2>
-    <ul>
-      <li style="width: max(50% - 12px, min(100%, 736px)); container-type: inline-size;">
-        <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: clamp(14.3px, calc(14.3px + (100vw - 375px) * 0.0063151), 24px); opacity: 1;">
-        <img src="assets/case-banking.webp" alt="{{ t.explore_card_alt }}" loading="lazy" decoding="async" width="1800" height="1350" style="display: block; width: 100%; height: calc(100cqw * 0.76004 - 20.69px); object-fit: cover; border-radius: clamp(17.093px, calc(17.093px + (100vw - 375px) * 0.0018926), 20px); background: rgb(243,242,243);">
-        <div style="display: flex; flex-direction: column; gap: clamp(8px, calc(8px + (100vw - 375px) * 0.0052083), 16px);">
-          <h3 style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.explore_card_title }}</h3>
-          <span style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.25; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
-        </div>
+  <section aria-labelledby="more" style="display: flex; flex-direction: column; gap: var(--s-more-gap); margin-top: var(--s-more);">
+    <h2 id="more" style="max-width: 900px; font-weight: 400; font-size: var(--t-heading); line-height: 1.2; color: rgb(39,32,40); text-wrap: balance; text-box: trim-both cap alphabetic;">{{ t.explore_heading }}</h2>
+    <ul class="more-grid">
+      <li>
+        <a href="{{ predictionHref }}" class="more-card">
+          <div class="more-media" data-cursor="{{ t.cursor_open_nda }}"><img src="assets/case-banking.webp" alt="{{ t.more_banking_alt }}" loading="lazy" decoding="async" width="1800" height="1350"></div>
+          <div class="more-text">
+            <h3 class="more-title">{{ t.more_banking_title }}</h3>
+            <span class="more-tag">NDA</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="{{ promoHref }}" class="more-card">
+          <div class="more-media" data-cursor="{{ t.cursor_open }}"><img src="assets/case-promo-iphone.webp" alt="{{ t.more_promo_alt }}" loading="lazy" decoding="async" width="2000" height="1500"></div>
+          <h3 class="more-title">{{ t.more_promo_title }}</h3>
         </a>
       </li>
     </ul>
   </section>
 
-  <footer style="margin-top: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px) * var(--fs, 1)); line-height: 1.25; color: rgb(0,0,0);">
+  <footer style="margin-top: var(--s-footer); display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: var(--t-label); line-height: 1.25; color: rgb(0,0,0);">
     <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">{{ t.privacy_link }}</a>
     <nav aria-label="{{ t.contacts_label }}" style="display: flex; align-items: center; gap: 8px;">
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">{{ t.telegram }}</a>
@@ -369,7 +368,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const isFile = typeof location !== 'undefined' && /\.dc\.html$/i.test(location.pathname);
-    return { t: pageText(this.state.lang), homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', predictionHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app' };
+    return { t: pageText(this.state.lang), homeHref: isFile ? 'Portfolio.dc.html' : '/', privacyHref: isFile ? 'Privacy.dc.html' : '/privacy', predictionHref: isFile ? 'PredictionMiniApp.dc.html' : '/prediction-mini-app', promoHref: isFile ? 'TBankPromo.dc.html' : '/t-bank-promo' };
   }
 }
 </script>

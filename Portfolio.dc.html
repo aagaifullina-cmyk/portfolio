@@ -23,9 +23,12 @@
         capture_performance: false,
     })
 </script>
-<link rel="stylesheet" href="lang.css?v=3">
+<link rel="stylesheet" href="type.css?v=6">
+<link rel="stylesheet" href="lang.css?v=4">
+<link rel="stylesheet" href="cursor.css?v=1">
+<script src="cursor.js?v=1" defer></script>
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=7"></script>
+<script src="i18n/site-texts.js?v=12"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -38,9 +41,35 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;family=Manrope:wght@500;600&amp;display=swap">
 <link rel="preload" as="image" href="assets/avatar.webp">
 <style>
-/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
-   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
-@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
+/* mobile home sizes scale with --m and are rounded to whole pixels */
+.m-name{font-size:calc(18 * var(--m))}
+.m-text{font-size:max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px))}
+.m-card{font-size:max(calc(14 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px))}
+.m-nda{font-size:max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px))}
+.m-badge{font-size:calc(12 * var(--m))}
+.m-section{font-weight:400;font-size:calc(20 * var(--m));line-height:1.125;letter-spacing:0.01em;text-box:trim-both cap alphabetic}
+@supports (width: round(nearest, 1.5px, 1px)){
+.m-name{font-size:round(nearest, calc(18 * var(--m)), 1px)}
+.m-text{font-size:round(nearest, max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)), 1px)}
+.m-card{font-size:round(nearest, max(calc(14 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)), 1px)}
+.m-nda{font-size:round(nearest, max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)), 1px)}
+.m-badge{font-size:round(nearest, calc(12 * var(--m)), 1px)}
+.m-section{font-size:round(nearest, calc(20 * var(--m)), 1px)}
+}
+/* mobile case titles keep room for two lines, so the cards below stay put when the language changes */
+.m-title{min-height:calc(2 * 1.1172em)}
+.m-title-nda{min-height:calc(3 * 1.1172 * max(calc(16 * var(--m)), 16px) + 8 * var(--m))}
+/* the tallest desktop card (title + NDA) keeps room for a two-line title, so a longer title in the other
+   language does not change the gallery height (and with it the --u scale) */
+/* row heading: "Cases" while the cases are on screen, "Playground" once the concepts reach the middle of it */
+.home-section-title{font-weight:400;font-size:var(--t-home-section);line-height:1.125;letter-spacing:0.01em}
+.home-row-title{display:grid}
+.home-row-title > span{grid-area:1 / 1;text-box:trim-both cap alphabetic;transition:opacity .3s ease,transform .3s ease}
+.home-row-title[data-part="cases"] > [data-title="playground"],
+.home-row-title[data-part="playground"] > [data-title="cases"]{opacity:0;transform:translateY(6px)}
+.home-card-text{min-height:calc(var(--t-home-card) * 1.25 * 3 + 16 * var(--u))}
+/* desktop: the page is pinned while the row scrolls sideways, so no elastic bounce at the top or the end */
+@media (min-width: 1024px){html,body{overscroll-behavior-y:none}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -55,58 +84,88 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 </helmet>
 <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
 <div ref="{{ outerRef }}" style="--u: min(calc(100vw / 1882), calc(100vh / 1100), 1.2px); position: relative; height: 100vh; font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; color: rgb(0,0,0);">
-  <div ref="{{ frameRef }}" data-screen-label="Main desktop" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; gap: calc(80 * var(--u)); padding: calc(40 * var(--u)); background: #fff;">
+  <div ref="{{ frameRef }}" data-screen-label="Main desktop" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; gap: calc(80 * var(--u)); padding: var(--s-page); background: #fff;">
     <header style="flex: none; display: flex; justify-content: space-between; align-items: flex-start; gap: calc(40 * var(--u));">
       <div style="flex: none; display: flex; align-items: center; gap: calc(21.712 * var(--u));">
-        <div role="img" aria-label="Asya Gaifullina" style="flex: none; width: calc(72 * var(--u)); height: calc(72 * var(--u)); border-radius: calc(13.437 * var(--u)); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></div>
-        <h1 style="font-weight: 400; font-size: calc(max(20px, calc(32 * var(--u))) * var(--fs-name, 1)); line-height: 1.125; letter-spacing: 0.01em; white-space: nowrap; text-box: trim-both cap alphabetic;">Asya Gaifullina<br>{{ t.role_product }} <span style="color: #9D9D9D;">·</span> <span style="white-space: nowrap;">{{ t.role_uxui }}</span></h1>
+        <div role="img" aria-label="Asya Gaifullina" class="site-avatar" style="flex: none; background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></div>
+        <h1 style="font-weight: 400; font-size: var(--t-home-name); line-height: 1.125; letter-spacing: 0.01em; white-space: nowrap; text-box: trim-both cap alphabetic;">Asya Gaifullina<br>{{ t.role_product }} <span style="color: #9D9D9D;">·</span> <span style="white-space: nowrap;">{{ t.role_uxui }}</span></h1>
       </div>
-      <div style="margin-left: auto; width: calc(888 * var(--u)); max-width: 62%; display: flex; flex-direction: column;">
-        <p style="font-weight: 300; font-size: calc(max(16px, calc(24 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)) * var(--fs, 1)); line-height: 1.4; text-wrap: pretty;">{{ t.intro }}</p>
-        <div style="display: flex; align-items: center; gap: calc(4 * var(--u));">
-          <span style="font-weight: 300; font-size: calc(max(16px, calc(24 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)) * var(--fs, 1)); line-height: 1.2; white-space: nowrap;">{{ t.clients }}</span>
-          <svg role="img" aria-label="{{ t.alfa_label }}" viewBox="7 6 30 30" style="flex: none; width: max(20px, calc(30 * var(--u))); height: max(20px, calc(30 * var(--u)));"><rect x="13.336" y="30.195" width="16.507" height="3.43" fill="rgb(239,49,36)"></rect><path transform="translate(13.699 8.504)" fill="rgb(239,49,36)" d="M 10.911 2.513 C 10.44 1.109 9.898 0 8.039 0 C 6.179 0 5.603 1.104 5.107 2.513 L 0 17.032 L 3.387 17.032 L 4.565 13.58 L 11.082 13.58 L 12.176 17.032 L 15.777 17.032 L 10.909 2.513 L 10.911 2.513 Z M 5.553 10.664 L 7.868 3.782 L 7.953 3.782 L 10.14 10.664 L 5.553 10.664 Z"></path></svg>
-          <svg role="img" aria-label="{{ t.tbank_label }}" viewBox="0 0 30 30" style="flex: none; width: max(20px, calc(30 * var(--u))); height: max(20px, calc(30 * var(--u)));"><g transform="translate(2 2.5)"><path fill="rgb(255,221,45)" d="M 0 0 L 26 0 L 26 13.076 C 26 16.428 24.212 19.526 21.309 21.202 L 13 26 L 4.691 21.202 C 1.788 19.526 0 16.428 0 13.076 L 0 0 Z"></path><path transform="translate(7.137 6.883)" fill="rgb(51,51,51)" fill-rule="evenodd" d="M 0 0 L 0 4.067 C 0.556 3.439 1.567 3.014 2.723 3.014 L 3.98 3.014 L 3.98 7.742 C 3.98 8.999 3.638 10.1 3.131 10.706 L 8.596 10.706 C 8.09 10.1 7.749 9 7.749 7.744 L 7.749 3.014 L 9.005 3.014 C 10.162 3.014 11.173 3.439 11.729 4.067 L 11.729 0 L 0 0 Z"></path></g></svg>
+      <div style="flex: none; height: var(--s-avatar); display: flex; align-items: center; gap: calc(32 * var(--u));">
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <span style="font-weight: 300; font-size: var(--t-home-clients); line-height: 1.2; white-space: nowrap;">{{ t.clients }}</span>
+          <svg role="img" aria-label="{{ t.alfa_label }}" viewBox="7 6 30 30" style="flex: none; width: calc(var(--t-home-clients) * 1.25); height: calc(var(--t-home-clients) * 1.25);"><rect x="13.336" y="30.195" width="16.507" height="3.43" fill="rgb(239,49,36)"></rect><path transform="translate(13.699 8.504)" fill="rgb(239,49,36)" d="M 10.911 2.513 C 10.44 1.109 9.898 0 8.039 0 C 6.179 0 5.603 1.104 5.107 2.513 L 0 17.032 L 3.387 17.032 L 4.565 13.58 L 11.082 13.58 L 12.176 17.032 L 15.777 17.032 L 10.909 2.513 L 10.911 2.513 Z M 5.553 10.664 L 7.868 3.782 L 7.953 3.782 L 10.14 10.664 L 5.553 10.664 Z"></path></svg>
+          <svg role="img" aria-label="{{ t.tbank_label }}" viewBox="0 0 30 30" style="flex: none; width: calc(var(--t-home-clients) * 1.25); height: calc(var(--t-home-clients) * 1.25);"><g transform="translate(2 2.5)"><path fill="rgb(255,221,45)" d="M 0 0 L 26 0 L 26 13.076 C 26 16.428 24.212 19.526 21.309 21.202 L 13 26 L 4.691 21.202 C 1.788 19.526 0 16.428 0 13.076 L 0 0 Z"></path><path transform="translate(7.137 6.883)" fill="rgb(51,51,51)" fill-rule="evenodd" d="M 0 0 L 0 4.067 C 0.556 3.439 1.567 3.014 2.723 3.014 L 3.98 3.014 L 3.98 7.742 C 3.98 8.999 3.638 10.1 3.131 10.706 L 8.596 10.706 C 8.09 10.1 7.749 9 7.749 7.744 L 7.749 3.014 L 9.005 3.014 C 10.162 3.014 11.173 3.439 11.729 4.067 L 11.729 0 L 0 0 Z"></path></g></svg>
         </div>
+        <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
       </div>
-      <div style="flex: none; height: calc(72 * var(--u)); display: flex; align-items: center;"><div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div></div>
     </header>
-    <section aria-label="{{ t.cases_label }}" style="flex: none;">
+    <section aria-labelledby="row-title" style="flex: none; display: flex; flex-direction: column; gap: calc(40 * var(--u));">
+      <h2 id="row-title" ref="{{ titleRef }}" class="home-section-title home-row-title" data-part="cases"><span data-title="cases">{{ t.cases_heading }}</span><span data-title="playground" aria-hidden="true">{{ t.playground_heading }}</span></h2>
       <ul ref="{{ trackRef }}" onFocus="{{ onFocusIn }}" style="display: flex; align-items: flex-start; gap: calc(40 * var(--u)); width: max-content; will-change: transform; color: rgb(39,32,40);">
         <li style="width: calc(798 * var(--u));">
           <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: calc(24 * var(--u)); opacity: 1;">
-            <div style="position: relative; width: calc(798 * var(--u)); height: calc(453 * var(--u)); overflow: hidden; isolation: isolate; border-radius: calc(40 * var(--u)); background: rgb(243,242,243); transition: background-color .3s ease;" style-hover="background-color: rgb(236,234,236);">
+            <div data-cursor="{{ t.cursor_open }}" style="position: relative; width: calc(798 * var(--u)); height: calc(453 * var(--u)); overflow: hidden; isolation: isolate; border-radius: calc(40 * var(--u)); background: rgb(243,242,243); transition: background-color .3s ease;" style-hover="background-color: rgb(236,234,236);">
               <video data-loop="" data-zoom="" src="media/1.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
             </div>
-            <h2 style="font-weight: 300; font-size: calc(max(15px, calc(22 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.wecoop_title }}</h2>
+            <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.wecoop_title }}</h3>
           </a>
         </li>
         <li style="width: calc(505 * var(--u));">
           <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: calc(24 * var(--u)); opacity: 1;">
-          <div role="img" aria-label="{{ t.banking_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(666 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-banking.webp) 39.604% 50% / 175.842% 100% no-repeat;"></div></div>
-          <div style="display: flex; flex-direction: column; gap: calc(16 * var(--u));">
-            <h2 style="font-weight: 300; font-size: calc(max(15px, calc(22 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.banking_title }}</h2>
-            <span style="font-weight: 300; font-size: calc(max(15px, calc(24 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)) * var(--fs, 1)); line-height: 1.25; white-space: nowrap; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
+          <div data-cursor="{{ t.cursor_open_nda }}" role="img" aria-label="{{ t.banking_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(666 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-banking.webp) 39.604% 50% / 175.842% 100% no-repeat;"></div></div>
+          <div class="home-card-text" style="display: flex; flex-direction: column; gap: calc(16 * var(--u));">
+            <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.banking_title }}</h3>
+            <span style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; white-space: nowrap; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
           </div>
           </a>
         </li>
         <li style="width: calc(798 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
-          <div role="img" aria-label="{{ t.tv_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(568 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(assets/case-tv.webp) center / cover no-repeat;"></div>
+          <div data-cursor="{{ t.cursor_soon }}" role="img" aria-label="{{ t.tv_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(568 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(assets/case-tv.webp) center / cover no-repeat;"></div>
             <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: calc(8 * var(--u)) calc(16 * var(--u)); min-height: calc(36 * var(--u)); display: flex; align-items: center; justify-content: center; border-radius: calc(40 * var(--u)); background: rgba(0,0,0,0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
-              <span style="font-weight: 400; font-size: calc(max(16px, calc(28 * var(--u))) * var(--fs, 1)); line-height: 1.0714; white-space: nowrap; color: #fff; text-box: trim-both cap alphabetic;">{{ t.coming_soon }}</span>
+              <span style="font-weight: 400; font-size: var(--t-home-badge); line-height: 1.0714; white-space: nowrap; color: #fff; text-box: trim-both cap alphabetic;">{{ t.coming_soon }}</span>
             </div>
           </div>
-          <h2 style="font-weight: 300; font-size: calc(max(15px, calc(24 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.tv_title }}</h2>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.tv_title }}</h3>
         </li>
         <li style="width: calc(505 * var(--u));">
           <a href="{{ promoHref }}" style="display: flex; flex-direction: column; gap: calc(24 * var(--u)); opacity: 1;">
-          <div role="img" aria-label="{{ t.event_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(666 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-promo-iphone.webp) 52.5% 75.6% / 189.909% 108% no-repeat;"></div></div>
-          <h2 style="font-weight: 300; font-size: calc(max(15px, calc(24 * var(--u)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)) * var(--fs, 1)); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.event_title }}</h2>
+          <div data-cursor="{{ t.cursor_open }}" role="img" aria-label="{{ t.event_image }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(666 * var(--u)); border-radius: calc(40 * var(--u));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-promo-iphone.webp) 52.5% 75.6% / 189.909% 108% no-repeat;"></div></div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.event_title }}</h3>
           </a>
+        </li>
+        <li data-playground-start="" style="width: calc(623 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
+          <div data-cursor="{{ t.cursor_concept }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(467 * var(--u)); border-radius: calc(40 * var(--u)); background: rgb(243,242,243);">
+            <video data-loop="" data-zoom="" src="media/pg-claude.mp4" poster="assets/pg-claude.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.pg_claude_title }}</h3>
+        </li>
+        <li style="width: calc(623 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
+          <div data-cursor="{{ t.cursor_concept }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(623 * var(--u)); border-radius: calc(40 * var(--u)); background: rgb(243,242,243);">
+            <video data-loop="" data-zoom="" src="media/pg-lavka.mp4?v=2" poster="assets/pg-lavka.webp?v=2" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.pg_lavka_title }}</h3>
+        </li>
+        <li style="width: calc(623 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
+          <div data-cursor="{{ t.cursor_concept }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(467 * var(--u)); border-radius: calc(40 * var(--u)); background: rgb(243,242,243);">
+            <video data-loop="" data-zoom="" src="{{ t.pg_money_video }}" poster="{{ t.pg_money_poster }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.pg_money_title }}</h3>
+        </li>
+        <li style="width: calc(623 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
+          <div data-cursor="{{ t.cursor_concept }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(623 * var(--u)); border-radius: calc(40 * var(--u)); background: rgb(243,242,243);">
+            <video data-loop="" data-zoom="" src="media/pg-pet.mp4" poster="assets/pg-pet.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.pg_pet_title }}</h3>
+        </li>
+        <li style="width: calc(623 * var(--u)); display: flex; flex-direction: column; gap: calc(24 * var(--u));">
+          <div data-cursor="{{ t.cursor_test }}" style="position: relative; overflow: hidden; isolation: isolate; height: calc(623 * var(--u)); border-radius: calc(40 * var(--u)); background: rgb(243,242,243);">
+            <video data-loop="" data-zoom="" src="media/pg-max.mp4" poster="assets/pg-max.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+          </div>
+          <h3 style="font-weight: 300; font-size: var(--t-home-card); line-height: 1.25; text-box: trim-both cap alphabetic;">{{ t.pg_max_title }}</h3>
         </li>
       </ul>
     </section>
-    <footer style="margin-top: auto; flex: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; color: rgb(0,0,0);">
+    <footer style="margin-top: auto; flex: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: var(--t-small); line-height: 1.4; color: rgb(0,0,0);">
       <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">{{ t.privacy_link }}</a>
       <nav aria-label="{{ t.contacts_label }}" style="display: flex; align-items: center; gap: 8px;">
         <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">{{ t.telegram }}</a>
@@ -118,58 +177,93 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 </div>
 </sc-if>
 <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
-<div data-screen-label="Main mobile" style="--m: min(calc(100vw / 375), 1.25px); min-height: 100vh; display: flex; flex-direction: column; gap: calc(56 * var(--m)); padding: calc(16 * var(--m)); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; color: rgb(0,0,0); background: #fff;">
-  <header style="display: flex; flex-direction: column; gap: calc(40 * var(--m));">
+<div data-screen-label="Main mobile" style="--m: min(calc(100vw / 375), 1.25px); min-height: 100vh; display: flex; flex-direction: column; gap: calc(56 * var(--m)); padding: var(--s-page); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; color: rgb(0,0,0); background: #fff;">
+  <header style="display: flex; flex-direction: column; gap: calc(24 * var(--m));">
     <div style="display: flex; align-items: center; gap: calc(11.459 * var(--m));">
-      <div role="img" aria-label="Asya Gaifullina" style="flex: none; width: calc(48 * var(--m)); height: calc(48 * var(--m)); border-radius: calc(7.092 * var(--m)); background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></div>
-      <h1 style="flex: 1 1 auto; font-weight: 400; font-size: calc(18 * var(--m)); line-height: 1.0556; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Asya Gaifullina<br>{{ t.role_product }} <span style="white-space: nowrap;">{{ t.role_uxui }}</span></h1>
-      <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
+      <div role="img" aria-label="Asya Gaifullina" class="site-avatar" style="flex: none; background: url(assets/avatar.webp) 50.31% 77.86% / 146.957% 145.538% no-repeat;"></div>
+      <h1 class="m-name" style="flex: 1 1 auto; font-weight: 400; line-height: 1.0556; letter-spacing: 0.01em; text-box: trim-both cap alphabetic;">Asya Gaifullina<br>{{ t.role_product }} <span style="white-space: nowrap;">{{ t.role_uxui }}</span></h1>
     </div>
-    <div style="display: flex; flex-direction: column;">
-      <p style="font-weight: 300; font-size: max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)); line-height: 1.5; text-wrap: pretty;">{{ t.intro }}</p>
-      <div style="display: flex; align-items: center; gap: calc(4 * var(--m));">
-        <span style="font-weight: 300; font-size: max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)); line-height: 1.2; white-space: nowrap;">{{ t.clients }}</span>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: calc(12 * var(--m));">
+      <div style="display: flex; align-items: center; gap: calc(4 * var(--m)); min-width: 0;">
+        <span class="m-text" style="font-weight: 300; line-height: 1.2; white-space: nowrap;">{{ t.clients }}</span>
         <svg role="img" aria-label="{{ t.alfa_label }}" viewBox="7 6 30 30" style="flex: none; width: calc(24 * var(--m)); height: calc(24 * var(--m));"><rect x="13.336" y="30.195" width="16.507" height="3.43" fill="rgb(239,49,36)"></rect><path transform="translate(13.699 8.504)" fill="rgb(239,49,36)" d="M 10.911 2.513 C 10.44 1.109 9.898 0 8.039 0 C 6.179 0 5.603 1.104 5.107 2.513 L 0 17.032 L 3.387 17.032 L 4.565 13.58 L 11.082 13.58 L 12.176 17.032 L 15.777 17.032 L 10.909 2.513 L 10.911 2.513 Z M 5.553 10.664 L 7.868 3.782 L 7.953 3.782 L 10.14 10.664 L 5.553 10.664 Z"></path></svg>
         <svg role="img" aria-label="{{ t.tbank_label }}" viewBox="0 0 30 30" style="flex: none; width: calc(24 * var(--m)); height: calc(24 * var(--m));"><g transform="translate(2 2.5)"><path fill="rgb(255,221,45)" d="M 0 0 L 26 0 L 26 13.076 C 26 16.428 24.212 19.526 21.309 21.202 L 13 26 L 4.691 21.202 C 1.788 19.526 0 16.428 0 13.076 L 0 0 Z"></path><path transform="translate(7.137 6.883)" fill="rgb(51,51,51)" fill-rule="evenodd" d="M 0 0 L 0 4.067 C 0.556 3.439 1.567 3.014 2.723 3.014 L 3.98 3.014 L 3.98 7.742 C 3.98 8.999 3.638 10.1 3.131 10.706 L 8.596 10.706 C 8.09 10.1 7.749 9 7.749 7.744 L 7.749 3.014 L 9.005 3.014 C 10.162 3.014 11.173 3.439 11.729 4.067 L 11.729 0 L 0 0 Z"></path></g></svg>
       </div>
+      <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
     </div>
   </header>
-  <section aria-label="{{ t.cases_label }}">
+  <section aria-labelledby="cases-title-m" style="display: flex; flex-direction: column; gap: calc(20 * var(--m));">
+    <h2 id="cases-title-m" class="m-section">{{ t.cases_heading }}</h2>
     <ul style="display: flex; flex-direction: column; gap: calc(32 * var(--m)); color: rgb(39,32,40);">
       <li>
         <a href="{{ wecoopHref }}" style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m)); opacity: 1;">
           <div style="position: relative; width: 100%; aspect-ratio: 343 / 240; overflow: hidden; isolation: isolate; border-radius: calc(17.243 * var(--m)); background: rgb(243,242,243);">
             <video data-loop="" data-zoom="" src="media/1.mp4" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
           </div>
-          <h2 style="font-weight: 300; font-size: max(calc(14 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)); line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.wecoop_title }}</h2>
+          <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.wecoop_title }}</h3>
         </a>
       </li>
       <li>
         <a href="{{ predictionHref }}" style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m)); opacity: 1;">
         <div role="img" aria-label="{{ t.banking_image }}" style="position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 343 / 240; border-radius: calc(17.093 * var(--m));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-banking.webp) center / cover no-repeat;"></div></div>
-        <div style="display: flex; flex-direction: column; gap: calc(8 * var(--m));">
-          <h2 style="font-weight: 300; font-size: max(calc(14 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)); line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.banking_title }}</h2>
-          <span style="font-weight: 300; font-size: max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px)); line-height: 1.1172; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
+        <div class="m-title-nda" style="display: flex; flex-direction: column; gap: calc(8 * var(--m));">
+          <h3 class="m-card" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.banking_title }}</h3>
+          <span class="m-nda" style="font-weight: 300; line-height: 1.1172; color: rgb(178,178,178); text-box: trim-both cap alphabetic;">NDA</span>
         </div>
         </a>
       </li>
       <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
         <div role="img" aria-label="{{ t.tv_image }}" style="position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 343 / 240; border-radius: calc(17.093 * var(--m));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(assets/case-tv.webp) center / cover no-repeat;"></div>
           <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: calc(3.419 * var(--m)) calc(6.837 * var(--m)); border-radius: calc(17.093 * var(--m)); background: rgba(0,0,0,0.2); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex;">
-            <span style="font-weight: 400; font-size: calc(11.965 * var(--m)); line-height: 1.0715; white-space: nowrap; color: #fff; text-box: trim-both cap alphabetic;">{{ t.coming_soon }}</span>
+            <span class="m-badge" style="font-weight: 400; line-height: 1.0715; white-space: nowrap; color: #fff; text-box: trim-both cap alphabetic;">{{ t.coming_soon }}</span>
           </div>
         </div>
-        <h2 style="font-weight: 300; font-size: max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)); line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.tv_title }}</h2>
+        <h3 class="m-text m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.tv_title }}</h3>
       </li>
       <li>
         <a href="{{ promoHref }}" style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m)); opacity: 1;">
         <div role="img" aria-label="{{ t.event_image }}" style="position: relative; overflow: hidden; isolation: isolate; width: 100%; aspect-ratio: 343 / 240; border-radius: calc(17.093 * var(--m));"><div data-zoom="" aria-hidden="true" style="position: absolute; inset: 0; background: url(assets/case-promo-iphone.webp) 66.3% 64% / 108% auto no-repeat;"></div></div>
-        <h2 style="font-weight: 300; font-size: max(calc(16 * var(--m)), clamp(16px, calc(16px + (100vw - 375px) * 0.0039063), 22px)); line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.event_title }}</h2>
+        <h3 class="m-text m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.event_title }}</h3>
         </a>
       </li>
     </ul>
   </section>
-  <footer style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; color: rgb(0,0,0);">
+  <section aria-labelledby="playground-title-m" style="display: flex; flex-direction: column; gap: calc(20 * var(--m));">
+    <h2 id="playground-title-m" class="m-section">{{ t.playground_heading }}</h2>
+    <ul style="display: flex; flex-direction: column; gap: calc(32 * var(--m));">
+      <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
+        <div style="position: relative; width: 100%; aspect-ratio: 623 / 467; overflow: hidden; isolation: isolate; border-radius: calc(17.093 * var(--m)); background: rgb(243,242,243);">
+          <video data-loop="" data-zoom="" src="media/pg-claude.mp4" poster="assets/pg-claude.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+        </div>
+        <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.pg_claude_title }}</h3>
+      </li>
+      <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
+        <div style="position: relative; width: 100%; aspect-ratio: 623 / 623; overflow: hidden; isolation: isolate; border-radius: calc(17.093 * var(--m)); background: rgb(243,242,243);">
+          <video data-loop="" data-zoom="" src="media/pg-lavka.mp4?v=2" poster="assets/pg-lavka.webp?v=2" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+        </div>
+        <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.pg_lavka_title }}</h3>
+      </li>
+      <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
+        <div style="position: relative; width: 100%; aspect-ratio: 623 / 467; overflow: hidden; isolation: isolate; border-radius: calc(17.093 * var(--m)); background: rgb(243,242,243);">
+          <video data-loop="" data-zoom="" src="{{ t.pg_money_video }}" poster="{{ t.pg_money_poster }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+        </div>
+        <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.pg_money_title }}</h3>
+      </li>
+      <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
+        <div style="position: relative; width: 100%; aspect-ratio: 623 / 623; overflow: hidden; isolation: isolate; border-radius: calc(17.093 * var(--m)); background: rgb(243,242,243);">
+          <video data-loop="" data-zoom="" src="media/pg-pet.mp4" poster="assets/pg-pet.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+        </div>
+        <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.pg_pet_title }}</h3>
+      </li>
+      <li style="display: flex; flex-direction: column; gap: calc(14.3 * var(--m));">
+        <div style="position: relative; width: 100%; aspect-ratio: 623 / 623; overflow: hidden; isolation: isolate; border-radius: calc(17.093 * var(--m)); background: rgb(243,242,243);">
+          <video data-loop="" data-zoom="" src="media/pg-max.mp4" poster="assets/pg-max.webp" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" tabindex="-1" disablePictureInPicture="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;"></video>
+        </div>
+        <h3 class="m-card m-title" style="font-weight: 300; line-height: 1.1172; text-box: trim-both cap alphabetic;">{{ t.pg_max_title }}</h3>
+      </li>
+    </ul>
+  </section>
+  <footer style="display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 400; font-size: var(--t-small); line-height: 1.4; color: rgb(0,0,0);">
     <a href="{{ privacyHref }}" style="color: rgb(157,157,157); text-box: trim-both cap alphabetic;">{{ t.privacy_link }}</a>
     <nav aria-label="{{ t.contacts_label }}" style="display: flex; align-items: center; gap: 8px;">
       <a href="https://tlgg.ru/asiyagai" target="_blank" rel="noopener noreferrer" style="text-box: trim-both cap alphabetic;">{{ t.telegram }}</a>
@@ -224,10 +318,10 @@ uniform float uZoom, uDark, uRadius, uDepth, uRefraction, uDispersion;
 varying vec2 vP;
 vec2 refractAt(vec2 p, float k) {
   vec2 d = min(p, uView - p);
-  float dist = min(d.x, d.y);
+  float dist = d.x; // left and right edges only (the row moves sideways)
   float t = clamp(1.0 - dist / uDepth, 0.0, 1.0);
   float bevel = 1.0 - sqrt(1.0 - t * t);
-  float span = d.x < d.y ? 0.5 * uView.x : 0.5 * uView.y;
+  float span = 0.5 * uView.x;
   return p + (0.5 * uView - p) * (uDepth * uRefraction * bevel / span) * k;
 }
 vec4 card(vec2 s) {
@@ -351,7 +445,7 @@ const createGlassEdge = (frame, track, getCur, getU) => {
     let videoInGlass = false;
     cards.forEach((c) => {
       const x = c.x0 - cur;
-      const inBand = x + c.w > 0 && x < W && (x < depth || x + c.w > W - depth || c.y < depth || c.y + c.h > H - depth);
+      const inBand = x + c.w > 0 && x < W && (x < depth || x + c.w > W - depth);
       if (!inBand || !c.ready) { setGlass(c, false); return; }
       if (c.isVideo) {
         // when the loop restarts the video is briefly not ready: keep the last frame instead of flickering
@@ -395,6 +489,7 @@ class Component extends DCLogic {
   outerRef = React.createRef();
   frameRef = React.createRef();
   trackRef = React.createRef();
+  titleRef = React.createRef();
   cur = 0; D = 0; first = true; raf = null;
   state = {
     mobile: typeof window !== 'undefined' ? window.innerWidth < (this.props.desktopBreakpoint ?? 1024) : false,
@@ -418,7 +513,7 @@ class Component extends DCLogic {
   }
   componentDidUpdate() {
     if (this.wasMobile !== this.state.mobile) { this.wasMobile = this.state.mobile; this.first = true; this.roT = null; this.measure(); loopVideos(); }
-    else if (this.wasLang !== this.state.lang) this.measure(); // texts of the other language may need a different fit
+    else if (this.wasLang !== this.state.lang) { this.measure(); this.syncTitle(); } // texts of the other language may need a different fit
     this.wasLang = this.state.lang;
   }
   componentWillUnmount() {
@@ -496,6 +591,17 @@ class Component extends DCLogic {
     const t = this.trackRef.current;
     if (t) t.style.transform = `translate3d(${(-this.cur).toFixed(2)}px,0,0)`;
     if (this.warp) this.warp.poke();
+    this.syncTitle();
+  }
+  // "Cases" -> "Playground" once the first concept passes the middle of the screen
+  syncTitle() {
+    const h = this.titleRef.current, t = this.trackRef.current;
+    if (!h || !t) return;
+    const start = t.querySelector('[data-playground-start]');
+    const part = start && start.offsetLeft - this.cur < this.innerWidth() / 2 ? 'playground' : 'cases';
+    if (h.getAttribute('data-part') === part) return;
+    h.setAttribute('data-part', part);
+    h.querySelectorAll('[data-title]').forEach((el) => el.setAttribute('aria-hidden', String(el.getAttribute('data-title') !== part)));
   }
   setupWarp(t) {
     const f = this.frameRef.current;
@@ -542,7 +648,7 @@ class Component extends DCLogic {
     return {
       mobile, desktop: !mobile,
       t: pageText(this.state.lang),
-      outerRef: this.outerRef, frameRef: this.frameRef, trackRef: this.trackRef,
+      outerRef: this.outerRef, frameRef: this.frameRef, trackRef: this.trackRef, titleRef: this.titleRef,
       onFocusIn: this.onFocusIn,
       wecoopHref: WECOOP_HREF,
       predictionHref: PREDICTION_HREF,

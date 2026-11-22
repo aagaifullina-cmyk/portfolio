@@ -23,9 +23,10 @@
         capture_performance: false,
     })
 </script>
-<link rel="stylesheet" href="lang.css?v=3">
+<link rel="stylesheet" href="type.css?v=6">
+<link rel="stylesheet" href="lang.css?v=4">
 <script src="lang.js?v=3"></script>
-<script src="i18n/site-texts.js?v=7"></script>
+<script src="i18n/site-texts.js?v=12"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -38,9 +39,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500&amp;display=swap">
 <style>
-/* Desktop type scale: font sizes are multiplied by these (mobile keeps 1). --fs for all text, and exact
-   desktop sizes for four levels: body 22 -> 20, case title 54 -> 40, headings 30 -> 28, home name 32 -> 28 */
-@media (min-width: 1024px){:root{--fs:0.9;--fs-body:calc(20 / 22);--fs-title:calc(40 / 54);--fs-heading:calc(28 / 30);--fs-name:calc(28 / 32)}}
 html,body{margin:0;background:#fff;overflow-x:clip;-webkit-text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 h1,h2,h3,p,ul,li{margin:0;padding:0;font:inherit}
@@ -49,7 +47,7 @@ a{color:inherit;text-decoration:none;transition:opacity .2s ease}
 a:hover{opacity:.6}
 a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radius:4px}
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
-.pm-field{width:100%;height:56px;padding:0 20px;border:1px solid rgba(39,32,40,0.08);border-radius:14px;background:rgb(243,242,243);color:rgb(39,32,40);font:inherit;font-weight:300;font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1));outline:none;transition:border-color .2s ease;-webkit-appearance:none;appearance:none}
+.pm-field{width:100%;height:56px;padding:0 20px;border:1px solid rgba(39,32,40,0.08);border-radius:14px;background:rgb(243,242,243);color:rgb(39,32,40);font:inherit;font-weight:300;font-size: var(--t-small);outline:none;transition:border-color .2s ease;-webkit-appearance:none;appearance:none}
 .pm-field::placeholder{color:rgb(157,157,157);opacity:1}
 .pm-field:focus{border-color:rgba(39,32,40,0.2)}
 .pm-field{padding-right:60px}
@@ -63,16 +61,16 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
 .pm-go[disabled]{color:rgb(198,198,198);cursor:default;opacity:1}
 </style>
 </helmet>
-<div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; position: relative;">
-  <div style="position: absolute; top: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); right: clamp(16px, calc(16px + (100vw - 375px) * 0.015625), 40px); display: flex; align-items: center; gap: 8px; margin: -12px -12px 0 0;">
+<div data-screen-label="NDA access" style="min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; padding: var(--s-page); background: #fff; color: rgb(39,32,40); font-family: 'Forma DJR Cyrillic Text', Onest, 'Helvetica Neue', Arial, sans-serif; position: relative;">
+  <div style="position: absolute; top: var(--s-page); right: var(--s-page); height: var(--s-avatar); display: flex; align-items: center; gap: 8px; margin: 0 -12px 0 0;">
     <div class="lang-switch" data-lang-switch role="group" aria-label="{{ t.lang_label }}"><button type="button" class="lang-opt" data-lang-option="en" lang="en" aria-label="English"><span class="lang-label">EN</span></button><button type="button" class="lang-opt" data-lang-option="ru" lang="ru" aria-label="Русский"><span class="lang-label">RU</span></button></div>
     <a class="pm-close" style="margin: 0;" href="{{ publicHref }}" onClick="{{ onClose }}" aria-label="{{ t.close_label }}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></a>
   </div>
   <main style="flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: clamp(56px, calc(56px + (100vw - 375px) * 0.015625), 80px) 0;">
     <div style="width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: clamp(16px, calc(16px + (100vw - 375px) * 0.0052083), 20px);">
       <div style="display: flex; flex-direction: column; gap: 4px;">
-        <p id="gate-intro" style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">{{ t.gate_intro }}</p>
-        <p id="company-hint" style="font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">{{ t.gate_hint }}</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">{{ t.gate_contact }}</a></p>
+        <p id="gate-intro" style="font-weight: 300; font-size: var(--t-small); line-height: 1.4; letter-spacing: 0.01em; color: rgb(0,0,0); text-wrap: pretty;">{{ t.gate_intro }}</p>
+        <p id="company-hint" style="font-weight: 300; font-size: var(--t-small); line-height: 1.4; letter-spacing: 0.01em;"><span style="color: rgb(157,157,157);">{{ t.gate_hint }}</span> <a href="mailto:aa.gaifullina@gmail.com?subject=Portfolio%20project%20access">{{ t.gate_contact }}</a></p>
       </div>
       <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="display: flex; flex-direction: column; gap: 10px;">
         <label for="company" class="pm-sr">{{ t.company_label }}</label>
@@ -83,10 +81,10 @@ a:focus-visible{outline:2px solid rgb(205,188,39);outline-offset:4px;border-radi
           </button>
         </div>
         <sc-if value="{{ error }}">
-          <p id="company-error" role="alert" style="font-weight: 300; font-size: calc(clamp(14px, calc(14px + (100vw - 375px) * 0.0026042), 16px) * var(--fs, 1)); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
+          <p id="company-error" role="alert" style="font-weight: 300; font-size: var(--t-note); line-height: 1.4; color: rgb(176,74,62);">{{ error }}</p>
         </sc-if>
       </form>
-      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: calc(clamp(16px, calc(16px + (100vw - 375px) * 0.0026042), 18px) * var(--fs, 1)); line-height: 1.4; letter-spacing: 0.01em;">{{ t.public_link }}</a>
+      <a href="{{ publicHref }}" style="align-self: flex-start; margin-top: clamp(8px, calc(8px + (100vw - 375px) * 0.0104167), 16px); font-weight: 300; font-size: var(--t-small); line-height: 1.4; letter-spacing: 0.01em;">{{ t.public_link }}</a>
     </div>
   </main>
 </div>
